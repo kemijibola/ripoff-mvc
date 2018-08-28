@@ -1,0 +1,149 @@
+﻿@using everything.Helpers
+@using Microsoft.AspNet.Identity
+
+
+<style>
+    .thumb-lg {
+        display: inline-block;
+        width: 96px;
+    }
+
+        .thumb img,
+        .thumb-xs img,
+        .thumb-sm img,
+        .thumb-md img,
+        .thumb-lg img,
+        .thumb-btn img {
+            height: auto;
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+    .avatar {
+        position: relative;
+        display: block;
+        white-space: nowrap;
+        border-radius: 500px;
+    }
+
+        .avatar img {
+            width: 96px;
+            height: 96px;
+            border-radius: 500px;
+        }
+
+        .avatar i {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            margin: 2px;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 100%;
+        }
+
+            .avatar i.right {
+                right: 0;
+                left: auto;
+            }
+
+            .avatar i.bottom {
+                top: auto;
+                right: 0;
+                bottom: 0;
+                left: auto;
+            }
+
+            .avatar i.left {
+                top: auto;
+                bottom: 0;
+            }
+
+            .avatar i.on {
+                background-color: #27c24c;
+            }
+
+            .avatar i.off {
+                background-color: #98a6ad;
+            }
+
+            .avatar i.busy {
+                background-color: #f05050;
+            }
+
+            .avatar i.away {
+                background-color: #fad733;
+            }
+
+        .avatar.thumb-md i {
+            width: 12px;
+            height: 12px;
+            margin: 3px;
+        }
+
+        .avatar.thumb-sm i {
+            margin: 1px;
+        }
+
+        .avatar.thumb-xs i {
+            margin: 0;
+        }
+
+    .panel {
+        margin: auto;
+        padding: 10px;
+        width: 600px;
+    }
+
+        .panel .dl-horizontal dt {
+            white-space: normal;
+        }
+</style>
+
+
+@if (Request.IsAuthenticated && ViewData.ContainsKey("DisplayName") && ViewData["Career"].ToString() == "General")
+{
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="login-section">
+                @*@Html.ActionLink("File Complaint", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn-login" })*@
+            @*<div class="thumb">
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <img src="@Url.Content("~/ProfilePhoto/"+(ViewData["DisplayImage"]))" alt="User display image" class="thumb-sm avatar img-circle">
+
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                        <li><small>@Html.Label("Hello " + (ViewData["DisplayName"]) + "!")</small></li>
+
+                        <li>@Html.ActionLink("Manage Account", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                        <li>@Html.ActionLink("Privacy", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                        <li>@Html.ActionLink("Terms of use", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+
+                    </ul>
+
+                </div>
+
+            </div>*@
+        </div>
+    }
+}
+else
+{
+
+    <div class="login-section">
+        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn-login" })
+        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn-login" })
+    </div>
+
+
+}

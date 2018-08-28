@@ -1,0 +1,66 @@
+﻿@using everything.Helpers
+@using System.Text.RegularExpressions;
+@using everything.ViewModels;
+
+
+<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.timeago.js")"></script>
+
+<div class="sidebar">
+    <div class="box">
+
+        <div class="text-box">
+            <a class="btn-time" style="background:#3694f4">Recent questions</a>
+
+            <div class="recent-post">
+
+                <ul>
+                    @foreach (var rep in (List<IndexQuestionViewModel>)ViewBag.Questions)
+                    {
+                        HtmlToText convert = new HtmlToText();
+
+                        string PageTitle = rep.QuestionTitle + " : " + convert.Convert(rep.QuestionText);
+                        string sm_PageTitle = Regex.Replace(PageTitle, "[^A-Za-z0-9]", "-");
+                        string id = Guid.NewGuid().ToString();
+                        string TopQuestion = @TruncateAtWord(convert.Convert(rep.QuestionText), 50);
+
+                        <li>
+                            <small>
+                                <a href="@Url.Action("Thread","Question", new {title=rep.QuestionTitle,page=rep.QuestionId,iD = id},null)" class="btn-login" style="font-size:small">
+                                   @TopQuestion
+                                </a>
+                            </small>
+                            <div class="text-area"> <a><i class="fa fa-user"></i>@Html.DisplayFor(model => rep.DisplayName)</a> <a><i class="fa fa-calendar"></i>@Html.Timeago(rep.DateAsked) </a> </div>
+
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery("abbr.timeago").timeago();
+    });
+
+
+</script>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

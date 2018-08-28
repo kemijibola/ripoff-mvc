@@ -1,0 +1,327 @@
+﻿@using everything.Helpers
+@using PagedList.Mvc
+@model everything.ViewModels.QuestionAndReportViewModel
+
+@{
+    ViewBag.Title = @ViewBag.Category;
+}
+
+<style>
+    section {
+        display: block;
+        position: relative;
+        padding: 30px 0;
+        border-bottom: rgba(0,0,0,0.1) 1px solid;
+        -webkit-transition: all .400s;
+        -moz-transition: all .400s;
+        -o-transition: all .400s;
+        transition: all .400s;
+        background-attachment: fixed;
+        background-position: center center;
+        background-repeat: no-repeat;
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        -o-background-size: cover !important;
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        background-size: cover !important;
+        box-sizing: border-box !important;
+    }
+
+        section:after,
+        section:before {
+            content: " ";
+            display: table;
+        }
+
+        section header.section-header {
+            margin-bottom: 80px;
+        }
+
+        div.alternate,
+        section.alternate {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        section.dark {
+            background-color: #fff;
+            border-bottom: rgba(255,255,255,0.1) 1px solid;
+        }
+
+            section.dark.alternate {
+                background-color: #151515;
+            }
+
+            section.theme-color,
+            section.theme-color h1,
+            section.theme-color h2,
+            section.theme-color h3,
+            section.theme-color h4,
+            section.theme-color h5,
+            section.theme-color h6,
+            section.theme- p,
+            section.dark,
+            section.dark p,
+            section.dark h1,
+            section.dark h2,
+            section.dark h3,
+            section.dark h4,
+            section.dark h5,
+            section.dark h6 {
+                color: #fff;
+            }
+
+        section.padding-xxs {
+            padding: 30px 0;
+        }
+
+        section.padding-xs {
+            padding: 60px 0;
+        }
+
+        section.padding-md {
+            padding: 80px 0;
+        }
+
+        section.padding-lg {
+            padding: 120px 0;
+        }
+
+        section.padding-xlg {
+            padding: 140px 0;
+        }
+
+        section.dark a {
+            color: #999;
+        }
+
+        section.parallax {
+            border: 0;
+        }
+</style>
+
+<link href="~/assets/essentials.css" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery.timeago.js")"></script>
+
+
+<section id="inner-banner">
+
+        <div class="container">
+
+            <h1>Question : @ViewBag.Category</h1>
+
+        </div>
+
+ </section>
+<div class="clearfix">
+</div>
+
+<div class="clearfix">
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- RIGHT -->
+        <div class="col-md-3 col-md-push-9">
+
+            <!-- INLINE SEARCH -->
+            <div class="inline-search clearfix margin-bottom-60">
+
+                @using (Html.BeginForm("QuestionList", "Question", FormMethod.Get, new { @class = "widget_search" }))
+                {
+                    <input type="hidden" id="q" name="q" value="@ViewBag.q">
+                    @Html.TextBox("search", ViewBag.CurrentSearch as string, new { @class = "serch-input", @placeholder = "Search Ask2Buy" })
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                }
+            </div>
+
+            <div class="hidden-xs box-inner">
+                @{
+                    string idR = Guid.NewGuid().ToString();
+                }
+                <h3>
+                    <a class="pull-right size-11 text-warning" href="@Url.Action("Index","LatestReports",null,null)">VIEW ALL</a>
+                    Complaints
+                </h3>
+                @foreach (var item in Model.TopTenReports.Select((x, b) => new { Data = x, Index = b }))
+                {
+                    string ReportT = @TruncateAtWord(item.Data.ReportText, 50);
+                    <div class="clearfix margin-bottom-0">
+                        <span class="size-13 text-muted">
+                            <a href="@Url.Action("ReportDetails", "Report", new { title = item.Data.Title, page = item.Data.ReportId, iD = idR },null)" class="btn-link">
+                                @ReportT...
+                            </a>
+                            <span class="text-success size-11">@Html.Timeago(item.Data.ReportDate)</span>
+                        </span>
+                    </div>
+                }
+            </div>
+
+            <div class="hidden-xs box-inner">
+                @{
+                    string idQ = Guid.NewGuid().ToString();
+                }
+                <h3>
+                    <a class="pull-right size-11 text-warning" href="@Url.Action("AllQuestion","Question",null,null)">VIEW ALL</a>
+                    Most Likes
+                </h3>
+                @foreach (var item in Model.MostLikeQuestions.Select((x, b) => new { Data = x, Index = b }))
+                {
+                    string TopQuestion = @TruncateAtWord(item.Data.QuestionTitle, 50);
+
+                    <div class="clearfix margin-bottom-0">
+                        <span class="size-13 text-muted">
+                            <a href="@Url.Action("Thread","Question", new {title=item.Data.QuestionTitle,page = item.Data.QuestionId,iD = idQ},null)" class="btn-login">
+                                @TopQuestion
+                            </a>
+                            <span class="text-success size-11">@item.Data.QuestionLikeCount</span>
+                        </span>
+                    </div>
+                }
+            </div>
+
+        </div>
+
+
+        <!-- LEFT -->
+        <div class="col-md-9 col-md-pull-3">
+            @if (Model.QuestionCount == 0)
+            {
+                                <span class="size-13">
+                                    Nothing to show in <strong>@ViewBag.Category.</strong> Be the first to post a question in this category.
+                                </span>
+                                <div class="clearfix">
+                                </div>
+                                <a href="@Url.Action("Create", "Question", new { }, null)" class="btn-style-1 style-big pull-left">
+                                    Click to Ask
+                                </a>
+            }
+            else
+            {
+                <table class="table table-vertical-middle margin-bottom-60">
+                    <thead>
+
+
+                        <tr class="size-15">
+                            <th class="weight-400">Question Title</th>
+                            <th class="text-center width-100 weight-300">Category</th>
+                            <th class="text-center width-100 weight-300">Answer</th>
+                            <th class="text-center width-200 weight-300">Freshness</th>
+                        </tr>
+                    </thead>
+
+
+
+                    @foreach (var item in Model.QuestionListViewModels)
+                    {
+                        HtmlToText convert = new HtmlToText();
+
+                        string QuestionT = @TruncateAtWord(convert.Convert(item.Title).ToString(), 200);
+                        <tbody>
+                            @{
+                                var id = Guid.NewGuid().ToString();
+                            }
+                            <tr>
+                                <td>
+                                    <h4 class="nomargin size-16">
+                                        <a href="@Url.Action("Thread","Question", new {title=item.Title,page = item.QuestionId,iD = id},null)">
+                                            @QuestionT
+                                        </a>
+
+                                        <ul class="list-inline categories nomargin text-muted size-11 hidden-xs">
+                                            <span>Created by @item.QuestionOwner</span>
+                                            <small class="block size-11 text-muted">@item.DateAsked</small>
+                                        </ul>
+
+                                    </h4>
+                                </td>
+                                <td class="text-center">
+                                    <span>@item.DiscussionCategory</span>
+                                </td>
+                                <td class="text-center">
+                                    <span>@item.AnswerCount</span>
+                                </td>
+                                <td class="text-center">
+                                    <small class="block size-11 text-muted">@item.LastParticipantDate</small>
+                                    <span class="size-13" href="page-profile.html">@item.LastParticipantOwner</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                     }
+
+
+                </table>
+
+                <div class="divider nomargin"><!-- divider --></div>
+
+                            <div class="clearfix margin-bottom-80">
+
+                                <span class="pull-left size-11">
+                                    <a href="@Url.Action("Index","Question",null,null)"><i class="fa fa-backward fa-1x"></i> Back&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                </span>
+
+                                <span class="pull-right size-11">
+                                    <a href="@Url.Action("AllQuestion","Question",null,null)" class="pull-right"><i class="fa fa-refresh fa-1x"></i> Reload </a>
+                                </span>
+
+                                <a href="@Url.Action("Create","Question",null,null)" class="btn btn-3d btn-xs btn-reveal btn-teal">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    <span> ASK A QUESTION</span>
+                                </a>
+
+
+                            </div>
+                                }
+
+
+            @{
+                if (Request.IsAuthenticated && ViewData.ContainsKey("DisplayName"))
+                {
+
+                }
+                else
+                {
+                    <div class="alert alert-warning alert-bordered-dashed text-center margin-bottom-30">
+
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <p>YOU MUST BE LOGGED IN TO ASK A NEW QUESTION!</p>
+                    </div>
+                }
+            }
+
+
+            <div class="text-center">
+                <ul class="pagination">
+                    @Html.PagedListPager(Model.QuestionListViewModels, page => Url.Action("AllQuestion", new { page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))
+                </ul>
+            </div>
+            <!-- /pagination -->
+
+
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    jQuery(document).ready(function () {
+        jQuery("abbr.timeago").timeago();
+    });
+</script>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

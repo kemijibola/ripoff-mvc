@@ -1,0 +1,281 @@
+﻿@using System.Text.RegularExpressions;
+@using everything.Helpers
+@model everything.ViewModels.QuestionwithCategoryandMaxEntryViewModel
+
+@{
+    ViewBag.Title = "Ask2Buy";
+}
+
+<style>
+    .stylish-panel {
+    padding: 20px 0;
+    text-align: center;
+}
+.stylish-panel > div > div{
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+</style>
+
+<link href="~/Content/bouncing.css" rel="stylesheet" />
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>Ask2buy</h1>
+
+    </div>
+
+</section>
+
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+
+<div class="container">
+
+    <hgroup class="mb20">
+
+        <h4 class="lead">
+
+            Read what others have to say!
+        </h4>
+        <div class="clearfix">
+        </div>
+    </hgroup>
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            <div class="text-box">
+
+                <small>Welcome to Rip-Off NG<span class="example1"><i class="fa fa-trademark" aria-hidden="true" style="font-size:7px"></i></span></small><br><br>
+
+                <p>In today’s complicated financial landscape, everyone faces questions about money from time to time. That’s why we created <b class="text-danger">"Ask2Buy"</b> : a source of clear, answers to questions about products / services from consumers like you.</p>
+
+                <p><strong class="text-dark">Why you need this!</strong> Reviews increase conversions. They can eliminate any doubts you may have about a product or service, or can help you in product selection. Consumer reviews are significantly more trusted than descriptions that come from manufacturers / business owners.</p> 
+            </div>
+
+            <em>@Html.ActionLink("(View All Questions)", "AllQuestion", "Question", routeValues: null, htmlAttributes: new { @class = "text" })</em>
+            <div class="clearfix">
+            </div>
+            <div class="text-center">
+                @*<img  src="~/images/ask.png">*@
+                <a href="@Url.Action("Create", "Question", new {},null)" class="btn-style-1 style-big pull-left" >
+                    Click to Ask
+                </a>
+                @*<div class="clearfix">
+                </div>*@
+           </div>
+        </div>
+        
+
+        <div class="col-md-4 col-sm-4">
+            <div class="clearfix">
+            </div>
+
+                <div class="frame">
+                    <a href="@Url.Action("AllQuestion", "Question", new {},null)"><img src="~/images/ask2buynew336x280.jpg" alt="Ask2Buy" style="display: block;margin-left: auto;margin-right: auto"></a>
+                 </div>
+            <!-- Begin fluid width widget -->
+            @*<div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-list-alt"></span>  Recent questions
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="media-list">
+                        <li class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <a href="#" class="text-info">
+                                        Ultricies Luctus
+                                    </a>
+                                </h4>
+                                <p class="margin-top-10 margin-bottom-20">
+                                    Ut sit amet tincidunt risus. Aenean quis tempus tortor. Pellentesque commodo malesuada augue...
+                                </p>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <a href="#" class="text-info">
+                                        Nulla Vitae
+                                    </a>
+                                </h4>
+                                <p class="margin-top-10 margin-bottom-20">
+                                    Pellentesque id nulla vitae nisl mollis hendrerit a non nisi. Cras ac velit elit. Fusce nulla odio, iaculis...
+                                </p>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <a href="#" class="text-info">
+                                        Media Heading
+                                    </a>
+                                </h4>
+                                <p class="margin-top-10 margin-bottom-20">
+                                    Donec venenatis, orci sit amet tempor dapibus, nisi elit imperdiet ex, nec lobortis ex magna eu felis...
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>*@
+            <!-- End fluid width widget -->
+
+        </div>
+
+            @*<div class="container">
+
+                    <div class="col-md-12 list-category text-primary">
+
+                    </div>
+
+
+
+            </div>*@
+        </div>
+    <div class="container">
+            <div class="clearfix">    
+            </div>
+            <div class="container">
+            <div class="row stylish-panel">
+            @foreach (var item in Model.DiscussionModels)
+                {
+                     string PageTitle = item.Description;
+                     string Title = Regex.Replace(PageTitle, "[^A-Za-z0-9]", "-");
+                     string Descrip = @TruncateAtWord(item.Description, 70);
+
+                      <div class="col-md-4">
+                            <div>
+                                <h4>
+                                    @if (item.DiscussionName == "Automobile")
+                                    {
+                                        <i class="fa fa-automobile fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Baby,Toys & Kids")
+                                    {
+                                            <i class="fa fa-child fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Books,Movies & Music")
+                                    {
+                                        <i class="fa fa-book fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Cameras & Electronics")
+                                    {
+                                        <i class="fa fa-camera fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Computing")
+                                    {
+                                        <i class="fa fa-laptop fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Fashion")
+                                    {
+                                        <i class="fa fa-shirtsinbulk fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Games & Consoles")
+                                    {
+                                        <i class="fa fa-gamepad fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Groceries")
+                                    {
+                                        <i class="fa fa-shopping-cart fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Health & Beauty")
+                                    {
+                                        <i class="fa fa-medkit fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Home & Office")
+                                    {
+                                        <i class="fa fa-home fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Phones & Tablets")
+                                    {
+                                        <i class="fa fa-tablet fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Services")
+                                    {
+                                        <i class="fa fa-shield fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Telecommunication")
+                                    {
+                                        <i class="fa fa-phone fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Sport & Fitness")
+                                    {
+                                        <i class="fa fa-futbol-o fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Weddings")
+                                    {
+                                        <i class="fa fa-heart fa-2x pull-left"></i>
+                                    }
+                                    @if (item.DiscussionName == "Watches & Sunglasses")
+                                    {
+                                        <i class="fa fa-glass fa-2x pull-left"></i>
+                                    }
+
+                                    <a href="@Url.Action("QuestionList","Question",new {title = Title, q  = item.DiscussionCategoryId },null)" title="See questions related to @item.DiscussionName" class="btn-link">@item.DiscussionName <em style="font-size:x-small" class="pull-right">x @item.TotalEntryForCategory</em></a>
+                                   @*<a @Url.Action("QuestionList","Question",new {title = Title, q  = item.DiscussionCategoryId },null) title="See questions related to @item.DiscussionName"> @item.DiscussionName <i class="fa fa-chevron-right pull-right"></i></a>*@
+                                </h4>
+                                <hr>
+                                @*<div class="page-header">
+                                </div>*@
+                                
+                                <p>
+                                    <em>@item.Description</em>
+                                    @*@{if (item.TotalEntryForCategory <= 1)
+                                        {
+                                            <b>@item.TotalEntryForCategory question</b>
+                                        }
+                                    }
+                                    @{if (item.TotalEntryForCategory > 1)
+                                        {
+                                            <b>@item.TotalEntryForCategory questions</b>
+                                        }
+                                    }*@
+                                    
+                                </p>
+                                @*<a href="@Url.Action("QuestionList","Question",new {title = Title, q  = item.DiscussionCategoryId },null)" class="contact" title="See questions related to @item.DiscussionName">@item.DiscussionName »</a>*@
+                                
+                            </div>
+                     </div>
+                }
+            </div>
+              
+            </div>
+        
+    </div>
+
+    </div>
+
+
+<script>
+    $(document).ready(function () {
+        var heights = $(".well").map(function () {
+            return $(this).height();
+        }).get(),
+
+        maxHeight = Math.max.apply(null, heights);
+
+        $(".well").height(maxHeight);
+    });
+</script>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}...", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

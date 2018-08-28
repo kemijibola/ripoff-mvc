@@ -1,0 +1,54 @@
+﻿@model everything.ViewModels.UserReportViewModel
+
+<div class="sidebar">
+
+    <h2 class="text-center">Recent Questions</h2>
+    <div class="btn-bg-color-1">
+
+
+    </div>
+    <div class="sidebar-jobs">
+        <ul>
+            @foreach (var item in Model.TopTenQuestionForLatestReportViewModels)
+            {
+
+                string idQ = Guid.NewGuid().ToString();
+                string TopQuestion = @TruncateAtWord(item.QuestionTitle, 50);
+                <li>
+                    <small style="font-size:small">
+                        <a href="@Url.Action("Thread","Question", new {title=item.QuestionTitle,page=item.QuestionId,iD = idQ},null)" class="btn-login" style="font-size:small">
+                            @TopQuestion
+                        </a>
+                    </small>
+                    <span><i class="fa fa-user"></i>@Html.DisplayFor(model => item.QuestionOwner)</span>
+                    <span><i class="fa fa-calendar"></i>@Html.DisplayFor(model => item.DateAsked) - @Html.DisplayFor(model => item.TimeAsked) </span>
+
+                </li>
+            }
+
+        </ul>
+
+    </div>
+    <div class="clearfix">
+    </div>
+    @*<div class="box">
+
+        <div class="frame">
+            <a href="#"><img src="~/images/rip-off_naija.gif" alt="img"></a>
+
+        </div>
+
+    </div>*@
+
+</div>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

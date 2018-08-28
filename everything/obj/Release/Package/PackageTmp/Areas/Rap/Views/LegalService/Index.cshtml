@@ -1,0 +1,105 @@
+﻿@using PagedList.Mvc;
+@model everything.Areas.Rap.ViewModels.LawyerRequestWithReportViewModel
+@using everything.Helpers
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Legal Service";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><span>Legal Requests</span></li>
+                </ol>
+
+                <h1>Legal Requests <small>LawFirm</small></h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box clearfix">
+                    <header class="main-box-header clearfix">
+                        <h2 class="pull-left">Filed Complaints/Reviews</h2>
+
+                        <div class="filter-block pull-right">
+                            @using (Html.BeginForm("Index", "LegalService", FormMethod.Get, new { @class = "form-inline navbar-form" }))
+                            {
+                                <div class="form-group pull-left">
+                                    @Html.TextBox("search", ViewBag.CurrentSearch as string, new { @class = "form-control", @placeholder = "Search for Request" })
+
+                                    <input type="submit" value="Search" class="btn btn-primary" />
+                                </div>
+                            }
+
+                        </div>
+                    </header>
+
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-xs">ID</th>
+                                        <th><span>Report Title</span></th>
+                                        <th class="text-center"><em class="fa fa-cog">&nbsp;Action</em></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.LawyerRequestViewModels.Select((x, b) => new { Data = x, Index = b }))
+                                    {
+                                        var id = Guid.NewGuid().ToString();
+                                        <tr>
+                                            <td>
+                                                <small>@(item.Index + ((Model.LawyerRequestViewModels.PageNumber - 1) * Model.LawyerRequestViewModels.PageSize) + 1)</small>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem =>Model.ReportTitle)
+                                            </td>
+
+                                            <td style="width: 25%;">
+
+                                                <a href="@Url.Action("Assign","LegalService", new {page=item.Data.Id})" class="table-link success" title="Click to approve Request">
+                                                    <span class="fa-stack">
+                                                        <i class="fa fa-square fa-stack-2x"></i>
+                                                        <i class="fa fa-asterisk fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                    Assign
+                                                </a>
+                                                <a href="@Url.Action("RejectRequest","LegalService", new {page=item.Data.Id})" class="table-link" title="Reject Legal Request">
+                                                    <span class="fa-stack">
+                                                        <i class="fa fa-square fa-stack-2x"></i>
+                                                        <i class="fa fa-rebel fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                    Reject
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="pagination pull-right">
+                            <b>Page @(Model.LawyerRequestViewModels.PageCount < Model.LawyerRequestViewModels.PageNumber ? 0 : Model.LawyerRequestViewModels.PageNumber) of @Model.LawyerRequestViewModels.PageCount</b>
+                            <span>
+
+                                @Html.PagedListPager(Model.LawyerRequestViewModels, page => Url.Action("Index", new { page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))
+                            </span>
+                        </ul>
+                        <a href="@Url.Action("Index", "LegalService", new { Area = "Rap" },null)" class="btn btn-default pull-left">
+                            <i class="fa fa-refresh fa-lg"></i> Refresh
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

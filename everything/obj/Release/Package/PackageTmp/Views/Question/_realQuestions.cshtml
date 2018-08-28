@@ -1,0 +1,96 @@
+﻿@using everything.Helpers
+@using PagedList.Mvc;
+@model PagedList.IPagedList<everything.Models.Question>
+
+<div class="row">
+    <div class="col-md-3">
+        @using (Html.BeginForm("GetAllRealQuestions", "Question", FormMethod.Get, new { @class = "" }))
+            {
+            <i class="fa fa-search"></i><b>Search for:</b>
+            @:&nbsp;
+            @Html.TextBox("search", ViewBag.CurrentSearch as string, new { @class = "form-control", @placeholder = "Keyword" })
+            <input type="submit" value="Search" class="btn btn-default" />
+        }
+    </div>
+    <div class="col-md-3">
+        <i class="fa fa-filter"></i><b>Filter by:</b>
+        @Html.DropDownList("DiscussionCategoryId", ViewBag.DiscussionCategory as SelectList, "Select Category", htmlAttributes: new { @class = "form-control", @Required = "Required" })
+    </div>
+    <div class="col-md-3">
+        <i class="fa fa-sort"></i><b>Sort by:</b><br>
+        <em class="btn-link">@Html.ActionLink("Newest", "GetAllRealQuestions", new { sort = ViewBag.NewestSort, search = ViewBag.CurrentSearch })</em>
+        <em class="btn-link"> @Html.ActionLink("Oldest", "GetAllRealQuestions", new { sort = ViewBag.OldestSort, search = ViewBag.CurrentSearch })</em>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel-info">
+            <div class="panel-heading panel-table">
+                <a href="@Url.Action("Index","Question",null,null)"><i class="fa fa-backward fa-2x"></i> &nbsp;Go back </a> &nbsp;&nbsp;<strong>All Questions</strong>
+                <a href="@Url.Action("GetAllRealQuestions","Question",null,null)" class="pull-right"><i class="fa fa-refresh fa-2x"></i></a>
+            </div>
+
+            <div class="panel-body">
+
+                @foreach (var item in Model.Select((x, b) => new { Data = x, Index = b }))
+                {
+                    HtmlToText convert = new HtmlToText();
+
+                    string QuestionT = @TruncateAtWord(convert.Convert(item.Data.QuestionText).ToString(), 200);
+
+                    <div class="box">
+
+                        <div class="recent-post">
+                            @{
+                                var id = Guid.NewGuid().ToString();
+                            }
+                            <em>
+                                @*<b>@(item.Index + ((Model.QuestionListViewModels.PageNumber - 1) * Model.QuestionListViewModels.PageSize) + 1).</b>*@
+                                <a href="@Url.Action("Thread","Question", new {title=item.Data.Title,page = item.Data.QuestionId,iD = id},null)">
+                                    @QuestionT
+                                </a>
+                            </em>
+                            <div class="clearfix">
+                            </div>
+
+                        </div>
+
+                    </div>
+                                }
+
+            </div>
+
+
+            <div class="panel-footer info">
+                <div class="row">
+                    <div class="col col-xs-4">
+                        <b>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</b>
+                    </div>
+                    <div class="col col-xs-12">
+
+                        <span>
+                            @Html.PagedListPager(Model, page => Url.Action("GetAllRealQuestions", new { page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

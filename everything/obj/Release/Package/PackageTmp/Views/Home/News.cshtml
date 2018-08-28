@@ -1,0 +1,191 @@
+﻿@using PagedList.Mvc;
+@model everything.ViewModels.NewsCreatedByViewModel
+@using everything.Helpers
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "News Updates";
+}
+
+<style type="text/css">
+    .example1 {
+        vertical-align: super;
+    }
+
+    .pagination > li > a,
+    .pagination > li > span {
+        border-radius: 50% !important;
+        margin: 0 5px;
+    }
+
+    ad-img {
+        filter: none; /* IE6-9 */
+        -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+        box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+        margin-bottom: 20px;
+    }
+
+        ad-img:hover {
+            filter: none; /* IE6-9 */
+            -webkit-filter: grayscale(0); /* Google Chrome, Safari 6+ & Opera 15+ */
+        }
+</style>
+<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.timeago.js")"></script>
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+
+    <!--POST AREA START-->
+
+<section class="post-section blog-post blog-medium">
+
+    <div class="container">
+
+        <div class="col-md-9 col-sm-8">
+
+        @foreach (var item in Model.NewsWithOwner.Select((x, b) => new { Data = x, Index = b }))
+        {
+
+            <div class="post-box">
+
+                <div class="frame"><a href="#"><img src="" alt=""></a></div>
+
+                <div class="text-box">
+                    <strong class="date"><i class="fa fa-calendar"></i>@item.Data.Created</strong>
+
+                    <h4><a href="@Url.Action("NewsUpdate", "Home",new { post = @item.Data.BlogId})">@item.Data.Title</a> @Html.Raw(HttpUtility.HtmlDecode(@TruncateAtWord(@item.Data.Post, 250)))....</h4>
+                        @*<p>
+                            <a href="@Url.Action("NewsUpdate", "Home",new { post = @item.Data.BlogId})">
+                                @Html.Raw(HttpUtility.HtmlDecode(@TruncateAtWord(@item.Data.Post, 250)))
+                            </a>
+                        </p>*@
+                    <strong class="name"><span>By</span> @item.Data.PostedBy</strong>
+                </div>
+
+            </div>
+            }
+
+
+            <!--PAGINATION SECTION START-->
+
+            <b>Page @(Model.NewsWithOwner.PageCount < Model.NewsWithOwner.PageNumber ? 0 : Model.NewsWithOwner.PageNumber) of @Model.NewsWithOwner.PageCount</b>
+            <span>
+
+                @Html.PagedListPager(Model.NewsWithOwner, page => Url.Action("News", new { page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))
+            </span>
+
+            <!--PAGINATION SECTION END-->
+
+        </div>
+
+        <div class="col-md-3 col-sm-4">
+
+            <aside>
+
+                <div class="sidebar">
+
+                    <h4>CONTACT Rip-Off NG&trade;</h4>
+
+                    <div class="box">
+
+                        @*<div class="frame"><a href="#"><img src="images/blog/blog-test-widget.jpg" alt="img"></a></div>*@
+
+                        <div class="text-col">
+
+                            <p>
+                                Do you have a story / experience / article you want to feature on our platform?<br>
+
+                                Email us at : <strong>info@ripoff.com.ng</strong><br>
+
+                                Or Call : <strong>+234 701 0008 383 or +234 905 7020 005</strong>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    @*<h4>Recent Complaints</h4>
+
+                    <div class="box">
+
+                        <div class="recent-post">
+                            
+
+                            <ul>
+
+                                <li>
+                                    <strong>
+                                        <a href="#">
+                                            Middle Class jobs are being
+
+                                            replaced by flipping
+                                        </a>
+                                    </strong>
+
+                                    <div class="text-area"> <a href="#"><i class="fa fa-user"></i>Dana Lincon</a> <a href="#"><i class="fa fa-calendar"></i>Mar 17, 2016 </a> </div>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <h4>Archives</h4>
+
+                    <div class="box">
+
+                        <div class="archives-box">
+
+                            <ul>
+
+                                <li><a href="#">January 2016<span>(10)</span></a></li>
+
+                                <li><a href="#">August 2015<span>(14)</span></a></li>
+
+                                <li><a href="#">February 2015<span>(20)</span></a></li>
+
+                                <li><a href="#">December 2014<span>(07)</span></a></li>
+
+                                <li><a href="#">July 2014<span>(05)</span></a></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>*@
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!--POST AREA END--> 
+
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

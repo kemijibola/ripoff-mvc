@@ -1,0 +1,215 @@
+﻿@model everything.ViewModels.FullNewsViewModel
+@using everything.Helpers
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+
+<style>
+    .comments {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+
+.comments {
+   
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #e4e6e8;
+}
+
+#share-buttons img {
+width: 35px;
+padding: 5px;
+border: 0;
+box-shadow: 0;
+display: inline;
+}
+</style>
+<section class="post-section blog-post">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-9 col-sm-8">
+
+                <div class="post">
+                    
+                    <div style="padding-left:10px;"><p><h3>@Model.Title</h3></p></div>
+
+                    <div style="padding-left:10px";>
+
+                        <div class="clearfix"> <strong class="date">Posted by: <i class="fa fa-user"></i> @Model.PublishedBy</strong> <strong class="date"><i class="fa fa-calendar"></i> @Model.DateCreated.ToShortDateString() </strong> </div>
+                        <div class="clearfix">
+                            <div class="fb-share-button"
+                                 data-href="@ViewBag.absoluteUrl"
+                                 data-layout="button_count">
+                            </div>
+                            <!--Twitter-->
+                            <a href="@ViewBag.absoluteUrl" class="twitter-share-button" data-show-count="true">Tweet</a>
+                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </div>
+                        <p style="text-align:center">@Html.Raw(@Model.Body)</p>
+
+                    </div>
+
+                    @if (Model.BlogImages.Count() > 0)
+                    {
+                        
+                        <br>
+                        foreach (var img in Model.BlogImages)
+                        {
+                            <div class="col-sm-6 col-md-3">
+                                <div class="thumbnail">
+                                    <a href="~/ImageUpload/@img.ImageName"><img src="~/ImageUpload/@img.ImageName" alt="@img.ImageCaption"></a>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    <div class="clearfix">
+                    </div>
+
+                    @if (Model.BlogVideos.Count() > 0)
+                    {
+
+                        <br>
+                        foreach (var vid in Model.BlogVideos)
+                        {
+                            <div class="col-sm-6 col-md-3">
+                                <video controls="controls" id="videoPlayer" width="200" height="200">
+                                    <source src="@Url.Content("~/VideoUpload/" + @vid.VideoName)" type="video/mp4">
+                                </video>
+                            </div>
+
+                        }
+                    }
+
+                </div>
+
+                <strong>Comments</strong>
+                
+                <div class="comment-form">
+                    <div id="comments-43970586" class="comments ">
+                        <div>
+                            <div data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+                                <div id="comment-74971274" class="comment ">
+                                @if (Model.BlogComment.Count() > 0)
+                                {
+                                    foreach (var com in Model.BlogComment)
+                                    {
+                                        <div class="comment-text">
+                                            <div style="display: block;" class="comment-body">
+                                                <span class="comment-copy">@com.Comment</span>
+                                                –&nbsp;<span class="comment-user"><a class="comment-link"> @Html.DisplayFor(model => com.User.NameExtension)</a></span>
+                                                <span class="comment-date" dir="ltr"><a class="comment-link">@com.DateCommented.ToShortDateString()</a> at <a class="comment-link"> <span class="relativetime-clean">@com.DateCommented.ToShortTimeString()</span></a></span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    @using (Html.BeginForm("PostComment", "Account", null, FormMethod.Post, new { id = "cForm", name = "cForm" }))
+                    {
+
+                        <h3>Leave a comment</h3>
+
+                        <div class="row">
+
+                            @if (!Request.IsAuthenticated && !ViewData.ContainsKey("DisplayName"))
+                            {
+                                <div class="col-md-4">
+
+                                    <input name="Email" id ="Email" required type="text" placeholder="Email">
+
+                                </div>
+                            }
+
+                            <div class="col-md-4"> </div>
+                            <input name="BlogId" id="BlogId" value="@Model.BlogId" type="hidden">
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-12">
+
+                                <textarea name="Comment" id = Comment required cols="10" rows="10" placeholder="Comment"></textarea>
+
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <input type="submit" value="Submit">
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3 col-sm-4">
+
+                <aside>
+
+                    <div class="sidebar">
+
+                        <h4>Recent Updates</h4>
+
+                        <div class="">
+
+                            <div class="archives-box">
+
+                                <ul>
+
+                                    @if (ViewBag.TopTen != null)
+                                    {
+                                        foreach (var item in (List<everything.Models.Blog>)ViewBag.TopTen)
+                                        {
+                                            <li>
+                                                <strong>
+                                                    <a href="@Url.Action("NewsUpdate", "Home",new { post = @item.BlogId},null)">
+                                                        @Html.Raw(HttpUtility.HtmlDecode(@TruncateAtWord(@item.Title, 350)))
+                                                    </a>
+                                                </strong>
+
+                                            </li>
+                                        }
+
+                                    }
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

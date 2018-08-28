@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title ="Continue to login";
+}
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+<section class="signup-section">
+
+    <div class="container">
+
+        <div class="holder">
+            <div class="form-group ">
+                <div class="col-md-12">
+                    <b>
+                        Thanks for letting us know
+                    </b>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-md-12">
+                    <p>
+                        We've recorded that you didnt ask to reset your password. You can log in to your account with your current password, and you don't need to do anything else.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-md-12">
+                    
+                        @Html.ActionLink("Continue", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+                   
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>

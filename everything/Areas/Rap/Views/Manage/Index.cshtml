@@ -1,0 +1,109 @@
+﻿@using PagedList.Mvc;
+@model everything.Areas.Rap.ViewModels.UserandRolesViewModel
+
+@{
+    ViewBag.Title = "Admin Users";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><span>Admin Users</span></li>
+                </ol>
+
+                <h1>Admin Users <small>Assiged Users</small></h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box clearfix">
+                    <header class="main-box-header clearfix">
+                        <h2 class="pull-left">Admin Users</h2>
+
+                        <div class="filter-block pull-right">
+                        @using (Html.BeginForm("Index", "Manage", FormMethod.Get, new { @class = "form-inline navbar-form" }))
+                          {
+                            <div class="form-group pull-left">
+                                @Html.TextBox("search", ViewBag.CurrentSearch as string, new { @class = "form-control", @placeholder = "Search by email" })
+                                
+                                <input type="submit" value="Search" class="btn btn-primary" />
+                            </div>
+                           }
+                            <a href="@Url.Action("Register", "Admin", new { Area = "Rap" },null)" class="btn btn-primary pull-right">
+                                <i class="fa fa-plus-circle fa-lg"></i> Add admin user
+                            </a>
+
+                        </div>
+                    </header>
+
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><span>Admin Name</span></th>
+                                        <th class="text-right"><span>Role Assigned</span></th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            @foreach (var item in Model.UserInRoleModels)
+                            {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FullName)
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.DisplayFor(modelItem => item.RoleName)
+                                        </td>
+
+                                        <td style="width: 15%;">
+                                            <a href="@Url.Action("ForgotPassword","Manage", new {Email = item.Email,Name = item.FullName},null)" class="table-link success" title="Send reset password link" onclick="return confirm('You are about to request password reset link for @item.FullName');">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                            <a href="@Url.Action("Edit","Manage", new {id = item.UserId},null)" class="table-link" title="Edit user">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                            <a href="@Url.Action("RemoveUserFromRole","Manage", new {userId = item.UserId,role = item.RoleName},null)" class="table-link danger" title="Remove user from role" onclick="return confirm('Are you sure you want to delete @item.FullName in @item.RoleName');">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                             }
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="pagination pull-right">
+                            <b>Page @(Model.UserInRoleModels.PageCount < Model.UserInRoleModels.PageNumber ? 0 : Model.UserInRoleModels.PageNumber) of @Model.UserInRoleModels.PageCount</b>
+                            <span>
+
+                                @Html.PagedListPager(Model.UserInRoleModels, page => Url.Action("Index", new { page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))
+                            </span>
+                        </ul>
+                        <a href="@Url.Action("Register", "Admin", new { Area = "Rap" },null)" class="btn btn-default pull-left">
+                            <i class="fa fa-refresh fa-lg"></i> Refresh 
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

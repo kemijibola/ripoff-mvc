@@ -1,0 +1,86 @@
+﻿@model everything.Models.LawyerRejectionReason
+
+@{
+    ViewBag.Title = "Edit Rejection";
+}
+
+<script src="~/jss/jquery.js"></script>
+<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><span>Edit Rejection Reason</span></li>
+                </ol>
+
+                <h1>Edit Rejection Reason <small>Lawyer Request</small></h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box clearfix">
+                    <header class="main-box-header clearfix">
+                        <h2 class="pull-left">Edit Rejection Reason</h2>
+                    </header>
+
+                    @using (Html.BeginForm("Edit", "RequestRejection", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "reqForm", name = "reqForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.LawyerRejectionReasonId)
+
+                        <div class="main-box-body clearfix">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Rejection Reason</label>
+                                @Html.EditorFor(model => model.ReasonForRejection, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ReasonForRejection, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <input type="submit" value="Save" name="operation" id="process" class="btn btn-success">
+                                </div>
+                            </div>
+                            <div id="divProcessing">
+                                <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                            </div>
+
+                        </div>
+                    }
+                    
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#reqForm").submit(function (event) {
+
+                $("#divProcessing").show();
+                $('#process').hide();
+    });
+
+</script>

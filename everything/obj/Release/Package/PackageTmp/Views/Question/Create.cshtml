@@ -1,0 +1,277 @@
+﻿
+@using everything.Helpers
+@using PagedList.Mvc;
+@model everything.Models.Question
+
+@{
+    ViewBag.Title = "Ask a question";
+}
+
+
+<style>
+
+.popupunder{
+    width: 350px;
+	position:fixed;
+	top: 265px;
+	right: 10px;
+	z-index: 80;
+	border: 0;
+	padding: 20px;
+}
+.popupunder.alert-success{
+    border: 1px solid #198b49;
+	background:#27AE60;
+	color:#fff;
+}
+.popupunder .close{
+	font-size: 10px;
+	position:absolute !important;
+	right: 2px;
+	top: 3px;
+}
+
+    .example1 {
+        vertical-align: super;
+    }
+
+
+</style>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/tinymce/tinymce.min.js")" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        // Initialize your tinyMCE Editor with your preferred options
+    tinyMCE.init({
+        // General options
+
+        mode: "textareas",
+        theme: "modern",
+
+        height: "300",
+        width: "790",
+        verify_html: false,
+
+        plugins: "smileys,emoticons,image",
+        toolbar: 'smileys,emoticons,insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons',
+
+        //plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+
+
+        //mode: "textareas",
+        //theme: "modern",
+        // Theme options
+        theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+        theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_resizing: false,
+        auto_convert_smileys: true,
+        relative_urls: false,
+
+        setup: function (ed) {
+            ed.on('keyup', function (e) { 
+                var count = CountCharacters();
+                document.getElementById("character_count").innerHTML = "Character count: " + count;
+                if (count < 20)
+                {
+                    $("#error").text("Your question must be minimum 20 characters");
+                }
+                else
+                {
+                    $("#error").text("");
+                }
+              
+            })
+        },
+
+            // Example content CSS (should be your site CSS)
+        content_css: "../Content/custom.css",
+
+
+
+    });
+</script>
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            @using (Html.BeginForm("Create", "Question", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "qForm", name = "qForm" }))
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="form-group col-md-12 col-sm-12">
+                        <i class="text-muted">Note before you post:</i><br><br>
+                        <p><b>Be specific</b> : If you ask a vague question, you’ll get a vague answer. But if you give details and context, consumers can provide a useful, relevant answer.<br><br>
+                        <span class="text-danger">Required fields are marked * </span>
+                    </div>
+                    <div class="form-group col-md-8 col-sm-8">
+                        <em><strong>Title<b class="text-danger">*</b></strong></em>
+                        @Html.TextBoxFor(model => model.Title, new { @autofocus = "autofocus", @class = "form-control", @placeholder = "Enter title for your question" , @Required="Required"})
+                        <small>@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })</small>
+
+                    </div>
+                    <div class="form-group col-md-8 col-sm-8">
+                        <em><strong>Tag<b class="text-danger">*</b></strong></em>
+                        @Html.TextBoxFor(model => model.Tag, new { @class = "form-control", @placeholder = "Enter tag such as (car / laptop / make-up)", @Required = "Required" })
+                        <small>@Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })</small>
+
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <em><strong>Question <b class="text-danger">*</b></strong></em>
+                        <span id="character_count"></span>
+                        <span id="error" class="text-danger"></span>
+                        @Html.TextAreaFor(model => model.QuestionText)
+                        <small>@Html.ValidationMessageFor(model => model.QuestionText, "", new { @class = "text-danger" })</small>
+
+                    </div>
+
+                    <div class="form-group col-md-8 col-sm-8">
+                        <em><strong>Category<b class="text-danger">*</b></strong></em>
+                            @Html.DropDownList("DiscussionCategoryId", ViewBag.DiscussionCategory as SelectList, "Select Category", htmlAttributes: new { @class = "form-control" ,@Required="Required"})
+                            @Html.ValidationMessageFor(m => m.DiscussionCategoryId, "", new { @class = "text-danger" })  
+                    </div>
+                        <div class="form-group col-md-8 col-sm-8">
+                            <div class="popupunder alert alert-info fade in"><button type="button" class="close close-sm" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i><small>close</small></button>
+                                <h4>How to Tag</h4>
+                                <p>A tag is a keyword or label that categorizes your question with other, similar questions.</p>
+                                <p><strong><span class="dingus">►</span> use common abbreviations</strong></p>
+                                <p><strong><span class="dingus">►</span> don't include synonyms</strong></p>
+                                <p><strong><span class="dingus">►</span> combine multiple words into single-words with dashes</strong></p>
+                                <p><strong><span class="dingus">►</span> must be maximum 25 chars</strong></p>
+                            </div>
+                            @*<div class="popupunder alert alert-success fade in"><button type="button" class="close close-sm" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i></button><strong>Success : </strong> The update process has been completed successfull!</div>*@
+                        </div>
+                        <div class="form-group col-md-8 col-sm-8">
+                            @Html.CheckBoxFor(model => model.NotifyMe)
+                            <em><strong> Send me new responses to my question via email<b class="text-danger">*</b></strong></em>
+
+                        </div>
+
+                        <div class="clearfix">
+                        </div>
+
+                        <div id="divProcessing">
+                            <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div class="input-group-btn">
+
+                                <input type="submit" value="Post your question" name="operation" id="process" class="btn btn-primary">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+            }
+            @*<div id="sticker">
+                <h4>How to Tag</h4>
+                <p>A tag is a keyword or label that categorizes your question with other, similar questions.</p>
+                <p><span>►</span> favor existing popular tags; avoid creating new tags</p>
+                <p><span>►</span> use common abbreviations</p>
+                <p><span>►</span> don't include synonyms</p>
+
+            </div>*@
+        </div>
+
+        
+        <div class="col-md-4 col-sm-4">
+
+                @*<h4>How to Tag</h4>
+                <p>A tag is a keyword or label that categorizes your question with other, similar questions.</p>
+                <p><span>►</span> favor existing popular tags; avoid creating new tags</p>
+                <p><span>►</span> use common abbreviations</p>
+                <p><span>►</span> don't include synonyms</p>*@
+
+        
+         
+        
+        </div>
+    </div>
+ 
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        function CountCharacters() {
+            var body = tinymce.get("QuestionText").getBody();
+            var content = tinymce.trim(body.innerText || body.textContent);
+            return content.length;
+        };
+
+
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+        ;
+        
+    });
+
+
+    $("#qForm").submit(function (event) {
+            
+            var min = 20;
+
+            var count = CountCharacters();
+            if (count < min) {
+                return false;
+            }
+               
+            var isValid = $('#qForm').valid();
+            if (isValid) {
+                tinyMCE.triggerSave();
+                $("#divProcessing").show();
+                $('#process').hide();
+             }
+    });
+
+</script>
+<script type="text/javascript">
+
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500000, 400000).slideUp(400000, function () {
+            $(this).remove();
+        });
+        // 500 : Time will remain on the screen
+    }, 400000);
+</script>
+
+
+}
+

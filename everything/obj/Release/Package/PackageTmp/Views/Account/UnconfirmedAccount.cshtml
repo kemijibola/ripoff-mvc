@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Unconfirmed account";
+}
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+<section class="signup-section">
+
+    <div class="container">
+
+        <div class="holder">
+
+            <div class="form-group ">
+                <div class="col-md-12">
+                    <h2>Unconfirmed account.</h2>  
+                        <p>
+                            If you have still not received an email confirmation message within 10 minutes of registering,
+                            or if you accidentally deleted the message, then click this button and we'll send you another one.
+                        </p>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-md-12">
+                        @using (Html.BeginForm("RegenerateEmailConfirmation", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.Hidden("Email", (string)ViewBag.Email)
+                            <input type="submit" value="Re-Send Email Confirmation" class="login" />
+                        }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

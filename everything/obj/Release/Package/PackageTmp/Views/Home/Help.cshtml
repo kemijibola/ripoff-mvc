@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = "Consumer Help";
+}
+
+<style>
+            .example1 {
+        vertical-align: super
+            
+    }
+
+            /*.box {
+    border-radius: 3px;
+
+	padding: 38px 30px;
+	text-align: right;
+	display: block;
+    cursor: pointer;
+}*/
+
+            .box-icon span {
+	color: #fff;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+.info h4 {
+	color: #555454;
+	font-size: 22px;
+	margin: 0px;
+	font-family: Oswald;
+	font-weight: 100;
+	padding: 28px 0px;
+	text-transform: uppercase;
+}
+.info > p {
+	color: #717171;
+	font-size: 14px;
+	text-align: center;
+}
+
+.box >.box-icon {
+    border: 2px solid #82b440;
+}
+/*.box:hover >.box-icon {
+	border: 2px solid #82b440;
+	background-color: #fff;
+	color: #82b440;
+	-webkit-transition: All 0.5s ease;
+	-moz-transition: All 0.5s ease;
+	-o-transition: All 0.5s ease;
+}*/
+.box:hover >.box-icon >span {
+	color: #82b440;
+}
+.box-icon {
+	background-color: #82b440;
+	border-radius: 50%;
+	display: table;
+	height: 75px;
+	margin: 0 auto;
+	width: 75px;/*margin-top: -61px;*/
+}
+</style>
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>Consumer Help</h1>
+
+    </div>
+
+</section>
+
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+
+
+
+@*<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="main_title"><span>INTEREST SKILLS</span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-icon"> <span class="fa fa-4x fa-music"></span> </div>
+                <div class="info">
+                    <h4 class="text-center">MUSIC</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-icon"> <span class="fa fa-4x fa-magic"></span> </div>
+                <div class="info">
+                    <h4 class="text-center">DESIGNING</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-icon"> <span class="fa fa-4x fa-book"></span> </div>
+                <div class="info">
+                    <h4 class="text-center">READING</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <dt class='text-danger'><h4>Why choose Rip-Off NG<span class="example1"><i class="fa fa-trademark" aria-hidden="true" style="font-size:7px"></i></span></h4></dt>
+                <dd><p>
+                        <small>We believe every consumer deserves affordable legal protection. We pride ourselves on connecting you with not just any legal protection but great legal protection. This is why we take the selection of our partner law firms very seriously. We’ve chosen some of the finest law firms throughout Nigeria to serve you. Law firms have been carefully selected based on their service philosophy, size and their ability to provide you with caring, responsive legal services when you need them most.</small></p>
+                        <em><small>Our network firms must:</small></em><br>
+                        <p>
+                            <small style="font-size:smaller">Be in good standing with the state bar association;</small><br>
+                            <small style="font-size:smaller">Have a service philosophy parallel to the high standards of Rip-off NG;</small><br>
+                            <small style="font-size:smaller">Understand and appreciate the everyday legal needs our clients face;</small><br>
+                        </p>
+                   
+                </dd>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <dt class='text-primary'><h4>Self help</h4></dt>
+                <dd><p><small> Access our range of consumer complaints <em>@Html.ActionLink("here", "Index", "LatestReports", routeValues: null, htmlAttributes: new { @class = "btn-link" })</em> to help understand and protect you against falling such victim.</small></p></dd>
+                <dt class='text-danger'><h4>Free legal advice</h4></dt>
+                <dd><p><small> Get free and independent legal advice shortly after posting your complaint on the platform.</small></p></dd>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <dt class='text-danger'><h4>Why take no action?</h4></dt>
+                <dd>
+                    <p><small>For civil legal services, reasons why people don’t get help have been reported to include:</small></p>
+                    <ul>
+                        <li><small>Fear of making a bad situation worse,</small></li>
+                        <li><small>Sense of powerlessness,</small></li>
+                        <li><small>“There’s nothing you can do”,</small></li>
+                        <li><small>Not knowing what to do,</small></li>
+                        <li><small>Is there someone you can phone/write to? Who would that be?</small></li>
+                        <li><small>Antipathy toward legal procedures.</small></li>
+                    </ul>
+                </dd>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-primary">
+                                <span>
+                                    Our matching service is provided at no cost to you and is designed to help streamline your consumer legal service search.
+                                    Our pre-screened legal experts are standing by to help - get connected today!
+                                </span>
+                            </h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <div class="box-icon"> <span><img src="~/images/form.png"></span> </div>
+                                <div class="info">
+                                    <h4 class="text-center">Step 1: Complete Form</h4>
+                                    <p>Simply fill out the form to initiate our free legal matching process. Affordable legal help is minutes away!</p>
+                                    <video controls="controls" id="videoPlayer" width="350" height="350" autoplay loop title="How to request a legal service">
+                                        <source src="@Url.Content("~/images/how-to.mp4")" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <div class="box-icon"> <span><img src="~/images/verify.png"></span> </div>
+                                <div class="info">
+                                    <h4 class="text-center">Step 2: Request Verification</h4>
+                                    <p>A verification officer will reach out to you to validate your request and get supplemental details on your legal situation.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <div class="box-icon"> <span><img src="~/images/shake.png"></span> </div>
+                                <div class="info">
+                                    <h4 class="text-center">Step 3: Get Connected</h4>
+                                    <p>Get connected with an affordable local lawyer that specializes in the area of law pertaining to your specific legal situation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+         </div>
+
+
+    </div>
+</div>

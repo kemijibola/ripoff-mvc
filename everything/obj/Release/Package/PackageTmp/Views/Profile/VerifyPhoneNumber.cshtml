@@ -1,0 +1,51 @@
+﻿@model everything.Models.VerifyPhoneNumberViewModel
+@{
+    ViewBag.Title = "Verify phone number";
+}
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+<section class="signup-section">
+    <div class="container">
+        <div class="holder">
+
+            @using (Html.BeginForm("VerifyPhoneNumber", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("phoneNumber", @Model.PhoneNumber)
+                <h4>Enter verification code</h4>
+                    <h5>@ViewBag.Status</h5>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                <div class="form-group ">
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Code, new { @placeholder = "Enter verification code", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="Submit" />
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

@@ -1,0 +1,133 @@
+﻿@model everything.Models.LawyerRequest
+
+@{
+    ViewBag.Title = "Lawyer Request";
+}
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+
+
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            @using (Html.BeginForm("Create", "RequestLawyer", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "lrForm", name = "lrForm" }))
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <input type="hidden" name="ReportId" id="ReportId" value="@ViewBag.ReportId" />
+                <div class="row">
+                    <div class="form-group col-md-12 col-sm-12">
+                        <b>
+                          Please fill form appropriately</b><br><br>
+                            <span class="text-danger">Required fields are marked * </span>
+                    </div>
+                    <div class="form-group col-md-8 col-sm-8">
+                        <em><strong>FullName<b class="text-danger">*</b></strong></em>
+                        @Html.TextBoxFor(model => model.FullName, new { @autofocus = "autofocus", @class = "form-control", @placeholder = "Omowunmi Ekanma", @Required = "Required" })
+                        <small>@Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })</small>
+
+                    </div>
+                    <div class="form-group col-md-8 col-sm-8">
+                        <em><strong>Email<b class="text-danger">*</b></strong></em>
+                        @Html.TextBoxFor(model => model.Email, new {@class = "form-control", @placeholder = "you@example.com", @Required = "Required" })
+                        <small>@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })</small>
+
+                    </div>
+                    <div class="form-group col-md-8 col-sm-8">
+                        <em><strong>Phone Number<b class="text-danger">*</b></strong></em>
+                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", @placeholder = "08080000000", @Required = "Required" })
+                        <small>@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })</small>
+
+                    </div>
+                    <div class="form-group col-md-8 col-sm-8">
+                        <em><strong>Additional Note</strong></em>
+                        @Html.TextAreaFor(model => model.AdditionalNote,new {@class="form-control",@rows ="4" })
+                        <small>@Html.ValidationMessageFor(model => model.AdditionalNote, "", new { @class = "text-danger" })</small>
+
+                    </div>
+                    
+                    <div class="form-group col-md-5 col-sm-5">
+                        <em><strong>Firm Region<b class="text-danger">*</b></strong></em>
+                        @Html.DropDownListFor(m => m.FirmRegionId, new SelectList(ViewBag.FirmRegion as System.Collections.IEnumerable, "FirmRegionId", "Name"), "Select preferred region", new { @class = "form-control", @Required = "Required" })
+                        @Html.ValidationMessageFor(m => m.FirmRegionId, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="clearfix">
+                    </div>
+
+                    <div id="divProcessing">
+                        <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                    </div>
+                    <div class="col-md-12">
+
+                        <div class="input-group-btn">
+
+                            <input type="submit" value="Submit" name="operation" id="process" class="btn btn-primary">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            }
+        </div>
+
+
+        <div class="col-md-4 col-sm-4">
+
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+        ;
+
+    });
+
+
+    $("#lrForm").submit(function (event) {
+
+            var isValid = $('#lrForm').valid();
+            if (isValid) {
+                $("#divProcessing").show();
+                $('#process').hide();
+             }
+    });
+
+    </script>
+
+}
+

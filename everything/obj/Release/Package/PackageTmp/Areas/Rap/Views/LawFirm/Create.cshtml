@@ -1,0 +1,189 @@
+﻿@model everything.Models.Lawfirm
+
+@{
+    ViewBag.Title = "Register LawFirm";
+}
+
+<script src="~/jss/jquery.js"></script>
+<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<div class="row">
+    @using (Html.BeginForm("Create", "LawFirm", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "regForm", name = "regForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-lg-12">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active"><span>Register LawFirm</span></li>
+                    </ol>
+
+                    <h1>Register LawFirm</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h2>LawFirm Details</h2>
+                        </header>
+
+                        <div class="main-box-body clearfix">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Firm Name</label>
+                                @Html.TextBoxFor(m => m.FirmName, new { @class = "form-control", @autofocus = "autofocus", @Required = "Required" , @placeholder = "LawFirm Name", })
+                                @Html.ValidationMessageFor(m => m.FirmName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Firm Owner</label>
+                                @Html.TextBoxFor(m => m.HolderName, new { @class = "form-control", @Required = "Required" , @placeholder = "LawFirm Owner", })
+                                @Html.ValidationMessageFor(m => m.HolderName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleTextarea">Phone Number</label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @placeholder = "Phone Number", @class = "form-control", @Required = "Required" })
+                                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleTooltip">Contact Person</label>
+                                @Html.TextBoxFor(m => m.ContactPerson, new { @placeholder = "Contact Person", @class = "form-control", @Required = "Required" })
+                                @Html.ValidationMessageFor(m => m.ContactPerson, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleTooltip">Contact Person Phone</label>
+                                @Html.TextBoxFor(m => m.ContactNumber, new { @placeholder = "Contact Person Phone", @class = "form-control", @Required = "Required" })
+                                @Html.ValidationMessageFor(m => m.ContactNumber, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleTooltip">Email</label>
+                                @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email", @class = "form-control", @Required = "Required" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleTooltip">Address</label>
+                                @Html.TextBoxFor(m => m.Address, new { @placeholder = "Address", @class = "form-control", @Required = "Required" })
+                                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="exampleTooltip">Country</label>
+                                    <div class="col-md-12">
+                                        @Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.Country as System.Collections.IEnumerable, "CountryId", "Name"), "Please select a country", new { @class = "form-control", id = "dllCountry" })
+                                        @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="exampleTooltip">State</label>
+                                    <div class="col-md-12">
+                                        @Html.DropDownListFor(m => m.StateId, new SelectList(Enumerable.Empty<SelectListItem>(), "StateId", "Name"), "Please select a state", new { @class = "form-control", id = "ddlCState" })
+                                        @Html.ValidationMessageFor(m => m.StateId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="exampleTooltip">City</label>
+                                    <div class="col-md-12">
+                                        @Html.DropDownListFor(m => m.CityId, new SelectList(Enumerable.Empty<SelectListItem>(), "CityId", "Name"), "Please select a city", new { @class = "form-control", id = "ddlCCity" })
+                                        @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <input type="submit" value="Register LawFirm" name="operation" id="process" class="btn btn-success">
+                                </div>
+                            </div>
+                            <div id="divProcessing">
+                                <p>Registering, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#regForm").submit(function (event) {
+
+        var isValid = $('#regForm').valid();
+            if (isValid) {
+                $("#divProcessing").show();
+                $('#process').hide();
+             }
+    });
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#dllCountry").change(function () {
+            var countryId = $(this).val();
+            console.log(countryId);
+            $.getJSON("../LawFirm/GetStateByCountryId", { countryid: countryId },
+                   function (stateData) {
+                       var select = $("#ddlCState");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Please select a state"
+                       }));
+                       $.each(stateData, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        });
+
+     }
+
+     );
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#ddlCState").change(function () {
+            var stateId = $(this).val();
+
+            $.getJSON("../LawFirm/GetCityByStateId", { stateid: stateId },
+                   function (cityData) {
+                       var select = $("#ddlCCity");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Please select a city"
+                       }));
+                       $.each(cityData, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        })
+    });
+</script>

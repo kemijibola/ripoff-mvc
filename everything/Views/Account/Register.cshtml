@@ -1,0 +1,164 @@
+﻿@model everything.Models.RegisterViewModell
+@{
+    ViewBag.Title = "Register";
+}
+
+<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="~/Content/intlTelInput.css" />
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+<style>
+    .intl-tel-input {width: 100%;}
+    </style>
+
+<section class="signup-section">
+
+    <div class="container">
+
+        <div class="holder">
+            <div class="thumb"><img src="~/images/person.gif" alt="img"></div>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "rForm", name = "rForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group ">
+                <strong>Email</strong>
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "you@example.com", @class = "form-control", @title = "You'll use this when you want to log in and if you ever need to reset your password." ,@Required = "Required"})
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+                @*<div class="form-group ">
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "First Name", @class = "form-control" , @title = "What's your name?" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                @*<div class="form-group ">
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.LastName, new { @placeholder = "Last Name", @class = "form-control" , @title = "What's your name?" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group ">
+                    <strong>Display Name</strong>
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.NameExtension, new { @placeholder = "O.Ekanma", @class = "form-control", @autofocus = "autofocus", @title = "What display name do you want?", @Required = "Required" })
+                        @Html.ValidationMessageFor(m => m.NameExtension, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group ">
+                    
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control intl-tel-input", id ="phone" })
+                        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+            <div class="form-group ">
+                <strong>Password</strong>
+                <div class="col-md-12">
+                    @Html.PasswordFor(m => m.Password, new { @placeholder = "********", @class = "form-control",@title = "Enter a combination of at least six numbers, letters and punctuation marks (like $ and #)" , @Required = "Required" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group ">
+                <strong>Confirm Password</strong>
+                <div class="col-md-12">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "********", @class = "form-control" , @title = "Please re-enter your password.", @Required = "Required" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group ">
+                <div class="col-md-12">
+                    @Html.DropDownList("CountryId", ViewBag.Country as SelectList, "Select Country", htmlAttributes: new { @class = "form-control" , @title = "What country do you reside in?" })
+                    @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="row"><p>@Html.CheckBoxFor(m => m.IsInterestedInLawyer) I am willing to be contacted by the media, a consumer advocate or lawyer to help further my cause or to help with
+                an investigation against the business or individual I am reporting.</p></div>
+
+
+            
+                <small>
+                        By clicking Sign Up, you agree to @Html.ActionLink("Our Terms", "OurTerms", "Maintenance", routeValues: null, htmlAttributes: new { @class = "btn-login" }) and that you have read our Data Policy, including our Cookie Use.
+                </small>
+
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input type="submit" value="Sign up" name="operation" id="process">
+                    </div>
+                </div>
+                <div id="divProcessing">
+                    <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                </div>
+                <em>Already a Member? @Html.ActionLink("LOG IN NOW", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn-login" })</em>          
+
+        }
+
+        </div>
+
+    </div>
+
+</section>
+<script src="~/Scripts/intlTelInput.js"></script>
+@*<script>
+  
+
+        $("#phone").intlTelInput({
+            autoHideDialCode: true,
+            autoPlaceholder: true,
+            dropdownContainer: "",
+            excludeCountries: [],
+            geoIpLookup: null,
+            initialCountry: "",
+            nationalMode: true,
+            numberType: "MOBILE",
+            onlyCountries: [],
+            preferredCountries: ["us", "gb"],
+            utilsScript: "../Scripts/utils.js"
+        });
+        
+</script>*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#rForm").submit(function (event) {
+
+            var isValid = $('#rForm').valid();
+            if (isValid) {
+                $("#divProcessing").show();
+                $('#process').hide();
+             }
+    });
+
+</script>
+
+}
+

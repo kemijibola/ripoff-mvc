@@ -1,0 +1,889 @@
+﻿@model everything.ViewModels.FullReportViewModel
+@using Microsoft.AspNet.Identity
+@using everything.Helpers;
+@using System.Text.RegularExpressions;
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<link href="~/assets/layout.css" rel="stylesheet" />
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+
+@*<link href="~/Content/app.css" rel="stylesheet" />*@
+<style>
+        .example1 {
+        vertical-align: super
+            
+    }
+
+    .panel-google-plus {
+        position: relative;
+        border-radius: 0px;
+        border: 0px solid rgb(216, 216, 216);
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .panel-google-plus > .dropdown {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+        }
+
+            .panel-google-plus > .dropdown > span > span {
+                font-size: 10px;
+            }
+
+            .panel-google-plus > .dropdown > .dropdown-menu {
+                left: initial;
+                right: 0px;
+                border-radius: 2px;
+            }
+
+        .panel-google-plus > .panel-google-plus-tags {
+            position: absolute;
+            top: 35px;
+            right: -3px;
+        }
+
+            .panel-google-plus > .panel-google-plus-tags > ul {
+                list-style: none;
+                padding: 0px;
+                margin: 0px;
+            }
+
+                .panel-google-plus > .panel-google-plus-tags > ul:hover {
+                    box-shadow: 0px 0px 3px rgb(0, 0, 0);
+                    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+                }
+
+                .panel-google-plus > .panel-google-plus-tags > ul > li {
+                    display: block;
+                    right: 0px;
+                    width: 0px;
+                    padding: 5px 0px 5px 0px;
+                    background-color: rgb(245, 245, 245);
+                    font-size: 12px;
+                    overflow: hidden;
+                }
+
+                    .panel-google-plus > .panel-google-plus-tags > ul > li::after {
+                        content: "";
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        height: 100%;
+                        border-right: 3px solid rgb(66, 127, 237);
+                    }
+
+                    .panel-google-plus > .panel-google-plus-tags > ul:hover > li,
+                    .panel-google-plus > .panel-google-plus-tags > ul > li:first-child {
+                        padding: 5px 15px 5px 10px;
+                        width: auto;
+                        cursor: pointer;
+                        margin-left: auto;
+                    }
+
+                .panel-google-plus > .panel-google-plus-tags > ul:hover > li {
+                    background-color: rgb(255, 255, 255);
+                }
+
+                .panel-google-plus > .panel-google-plus-tags > ul > li:hover {
+                    background-color: rgb(66, 127, 237);
+                    color: rgb(255, 255, 255);
+                }
+
+        .panel-google-plus > .panel-heading,
+        .panel-google-plus > .panel-footer {
+            background-color: rgb(255, 255, 255);
+            border-width: 0px;
+        }
+
+        .panel-google-plus > .panel-heading {
+            margin-top: 20px;
+            padding-bottom: 5px;
+        }
+
+            .panel-google-plus > .panel-heading > img {
+                margin-right: 15px;
+            }
+
+            .panel-google-plus > .panel-heading > h3 {
+                margin: 0px;
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            .panel-google-plus > .panel-heading > h5 {
+                color: rgb(153, 153, 153);
+                font-size: 12px;
+                font-weight: 400;
+            }
+
+        .panel-google-plus > .panel-body {
+            padding-top: 5px;
+            font-size: 13px;
+        }
+
+            .panel-google-plus > .panel-body > .panel-google-plus-image {
+                display: block;
+                text-align: center;
+                background-color: rgb(245, 245, 245);
+                border: 1px solid rgb(217, 217, 217);
+            }
+
+                .panel-google-plus > .panel-body > .panel-google-plus-image > img {
+                    max-width: 100%;
+                }
+
+        .panel-google-plus > .panel-footer {
+            font-size: 14px;
+            font-weight: 700;
+            min-height: 54px;
+            margin-bottom: 10px;
+        }
+
+            .panel-google-plus > .panel-footer > .btn {
+                float: left;
+                margin-right: 8px;
+            }
+
+            .panel-google-plus > .panel-footer > .input-placeholder {
+                display: block;
+                margin-left: 98px;
+                color: rgb(153, 153, 153);
+                font-size: 12px;
+                font-weight: 400;
+                padding: 8px 6px 7px;
+                border: 1px solid rgb(217, 217, 217);
+                border-radius: 2px;
+                box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+            }
+
+        .panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
+            display: none;
+        }
+
+        .panel-google-plus > .panel-google-plus-comment {
+            display: none;
+            padding: 10px 20px 15px;
+            border-top: 1px solid rgb(229, 229, 229);
+            background-color: rgb(245, 245, 245);
+        }
+
+        .panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
+            display: block;
+        }
+        /*.panel-google-plus > .panel-google-plus-comment > img {
+        float: left;
+    }*/
+        .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea {
+            float: right;
+            width: calc(100% - 56px);
+        }
+
+            .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > textarea {
+                display: block;
+                /*margin-left: 60px;
+        width: calc(100% - 56px);*/
+                width: 100%;
+                background-color: rgb(255, 255, 255);
+                border: 1px solid rgb(217, 217, 217);
+                box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+                resize: vertical;
+            }
+
+            .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+                margin-top: 10px;
+                margin-right: 8px;
+                width: 100%;
+            }
+
+            .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+                width: auto;
+            }
+
+
+
+        .panel-google-plus .btn {
+            border-radius: 3px;
+        }
+
+        .panel-google-plus .btn-default {
+            border: 1px solid rgb(217, 217, 217);
+            box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+        }
+
+            .panel-google-plus .btn-default:hover,
+            .panel-google-plus .btn-default:focus,
+            .panel-google-plus .btn-default:active {
+                background-color: rgb(255, 255, 255);
+                border-color: rgb(0, 0, 0);
+            }
+
+    .post {
+        max-width: 600px;
+    }
+</style>
+
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-9 col-sm-8">
+
+                <div id="content-area">
+
+                  
+
+                        @{
+                            bool stateIsEmpty = false;
+                            bool cityIsEmpty = false;
+                            bool emailIsEmpty = false;
+                            bool webiteIsEmpty = false;
+                            bool addressIsEmpty = false;
+
+                            string StateName = Model.StateName;
+
+                            if (StateName == null)
+                            {
+                                stateIsEmpty = true;
+                            }
+                            string CityName = Model.CityName;
+
+                            if (CityName == null)
+                            {
+                                cityIsEmpty = true;
+                            }
+                            string Website = Model.Website;
+                            if (Website == null)
+                            {
+                                webiteIsEmpty = true;
+                            }
+                            string Email = Model.Email;
+                            if (Email == null)
+                            {
+                                emailIsEmpty = true;
+                            }
+                            string Address = Model.Address;
+                            if (Address == null)
+                            {
+                                addressIsEmpty = true;
+                            }
+                        }
+                        <div class="text-col">
+
+                            <h2><span>Complaint Review: <b class="text-danger">@Html.DisplayFor(model => model.CompanyorIndividual)</b></span></h2>
+
+                            <ul class="company-small">
+                                <li><strong>Posted on:</strong> <small>@Html.DisplayFor(model => model.ReportDateCreated) at @Html.DisplayFor(model => model.ReportTimeCreated)</small></li>
+
+
+
+                                <li><strong>Reported by:</strong> <small>@Html.DisplayFor(model => model.DisplayName)</small></li>
+
+
+
+                                <li><strong>Category:</strong> <small>@Html.DisplayFor(model => model.CategoryName) | @Html.DisplayFor(model => model.TopicName) </small></li>
+
+                                @if (!cityIsEmpty)
+                                {
+                                    <li>
+                                        <strong>City:</strong> <small>@Html.DisplayFor(model => model.CityName)</small>
+
+                                    </li>
+                                }
+
+                                @if (!stateIsEmpty)
+                                {
+                                    <li>
+                                        <strong>State:</strong> <small>@Html.DisplayFor(model => model.StateName)</small>
+
+                                    </li>
+                                }
+                                @if (!addressIsEmpty)
+                                {
+
+                                    <li><strong>Address:</strong> <small>@Html.DisplayFor(model => model.Address)</small></li>
+
+                                }
+
+                                @if (!webiteIsEmpty)
+                                {
+                                    <li>
+                                        <strong>Website:</strong><small><a href="http://@Model.Website">http://@Html.DisplayFor(model => model.Website)</a></small>
+                                    </li>
+                                }
+
+
+
+                                @if (!emailIsEmpty)
+                                {
+                                    <li>
+                                        <strong>Email:</strong> <small>@Html.DisplayFor(model => model.Email)</small>
+
+                                    </li>
+                                }
+
+
+
+                            </ul>
+
+
+                            <em>@Html.ActionLink("(View All Complaints)", "Index", "LatestReports", routeValues: null, htmlAttributes: new { @class = "text" })</em>
+                            <p></p>
+
+                            <div class="clearfix">
+                                @{ 
+                                    bool isCaseUpdateExist = Model.CaseUpdateExist;
+                                }
+                                <div class="btn-row">
+                                    @{
+                                        bool RebuttalAccess = Model.RebuttalAccess;
+                                        if (!RebuttalAccess == true)
+                                        {
+                                            <a href="@Url.Action("Rebuttal", "Report", new {title=ViewBag.PageTitle, page=Model.ReportId, iD=ViewBag.RandomId},null)" class="resume" title="The report filed is against you? Set records straight,consumers want to see how businesses take care of business.">
+                                                Respond to Complaint
+                                            </a>
+                                        }
+
+                                    }
+
+                                     <a href="@Url.Action("Create", "Report", null,null)" class="contact" title="Are you also a victim of the same individual/company? Want justice ? File Report, share your experience and educate other consumers.">
+                                          File a Complaint
+                                     </a> 
+                                    @{if (isCaseUpdateExist == true)
+                                        {
+                                            <a class="login ">
+                                                <i class="fa fa-gavel"></i> Follow case
+                                            </a>
+                                        }
+                                    }
+
+
+                                </div>
+
+                                @*<a href="#" class="btn-style-1">Follow Legal Proceeding <i class="fa fa-gavel"></i></a>
+                                <a href="#" class="btn-style-1">Follow Legal <i class="fa fa-gavel"></i></a>*@
+
+                                @*<div class="company-social">
+
+                                    <ul>
+
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+
+                                        <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+
+                                    </ul>
+
+                                </div>*@
+                            </div>
+
+
+                        </div>
+                        <div class="clearfix">
+                         </div>
+                        <div class="input-box">
+                            @{
+                                bool legalExist = Model.LegalAdviceExist;
+                            }
+                            <h4>@Html.DisplayFor(model => model.Title)</h4>
+
+                            <div class="outer">
+
+                                <div class="col">
+
+                                    <p>@Html.Raw(HttpUtility.HtmlDecode(Model.ReportText))</p>
+
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                               
+                                    <div class="">
+                                        @{
+
+                                            foreach (var leg in Model.RipOffLegalTeamViewModels)
+                                            {
+                                                <ol> <strong>@*<i class="fa fa-trademark example1" aria-hidden="true" style="font-size:15px"></i>*@Rip-Off NG&trade; Legal: </strong><i class="text-success">@Html.DisplayFor(model => leg.LegalAdvice)</i></ol>
+                                            }
+
+                                        }
+                                    </div>
+                                
+                            </div>
+
+                            <!-- Google+ -->
+                            @*<a href="https://plus.google.com/share?url=@ViewBag.absoluteUrl" target="_blank" src="share_button">
+                                <i class="fa fa-google-plus fa-2x"></i>
+                            </a>*@
+                            <!--Facebook-->
+                            <div class="fb-share-button"
+                                 data-href="@ViewBag.absoluteUrl"
+                                 data-layout="button_count">
+                            </div>
+                            <!--Twitter-->
+                            <a href="@ViewBag.absoluteUrl" class="twitter-share-button" data-show-count="true">Tweet</a>
+                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                        </div>
+                     <div class="clearfix">
+
+
+                         @{
+                             bool reportImageIsEmpty = false;
+                             
+
+                             int reportImage = Model.ReportImageViewModels.Count;
+
+                             if (reportImage == 0)
+                             {
+                                 reportImageIsEmpty = true;
+                             }
+                         }
+                    @if (!reportImageIsEmpty)
+                    {
+                        if (reportImage == 1)
+                        {
+                            <h4><strong class="title"><i>1 Report Image</i></strong></h4>
+                            <hr>
+                        }
+                        else
+                        {
+                            <h4><strong class="title"><i>@reportImage Report Images</i></strong></h4>
+                            <hr>
+                        }
+
+
+                         foreach (var img in Model.ReportImageViewModels)
+                         {
+                             <div class="col-sm-6 col-md-3">
+                                 <div class="thumbnail">
+                                     <a href="~/ImageUpload/@img.ImageName"><img src="~/ImageUpload/@img.ImageName" alt="Generic placeholder thumbnail"></a>
+                                 </div>
+
+                                 <div class="caption">
+                                     <small>@img.ImageDateCreated</small>
+                                     <small>@img.ImageCaption</small>
+                                 </div>
+                             </div>
+
+                         }
+
+
+                       }
+                      </div>
+                      <div class="clearfix">
+                            @{
+                                bool reportVideoIsEmpty = false;
+
+                                int reportVideo = Model.ReportVideoViewModels.Count;
+
+                                if (reportVideo == 0)
+                                {
+                                    reportVideoIsEmpty = true;
+                                }
+                            }
+                        @if (!reportVideoIsEmpty)
+                        {
+                            if (reportVideo == 1)
+                            {
+                                <h4><strong class="title"><i>1 Report Video</i></strong></h4>
+                                <hr>
+                            }
+                            else
+                            {
+                                <h4><strong class="title"><i>@reportVideo Report Videos</i></strong></h4>
+                                <hr>
+                            }
+
+
+                            foreach (var vid in Model.ReportVideoViewModels)
+                            {
+                                <div class="col-sm-6 col-md-3">
+                                    <video controls="controls" id="videoPlayer" width="200" height="200">
+                                        <source src="@Url.Content("~/VideoUpload/" + @vid.VideoName)" type="video/mp4">
+                                    </video>
+                                    
+
+                                    <div class="caption">
+                                        <small>@vid.VideoDateCreated</small>
+                                        <small>@vid.VideoCaption</small>
+                                    </div>
+                                </div>
+
+                            }
+
+
+                            }
+                        </div>
+                        <div class="clearfix">
+                            @{
+                                bool rebuttalIsEmpty = false;
+
+                                int rebuttal = Model.RebuttalViewModels.Count;
+
+                                if (rebuttal == 0)
+                                {
+                                    rebuttalIsEmpty = true;
+                                }
+                            }
+                            @if (!rebuttalIsEmpty)
+                            {
+                                if (rebuttal == 1)
+                                {
+                                    <h4><strong><i>1 Response</i></strong></h4>
+                                    <hr>
+                                }
+                                else
+                                {
+                                    <h4><strong><i>@rebuttal Responses</i></strong></h4>
+                                    <hr>
+                                }
+
+                                foreach (var reb in Model.RebuttalViewModels)
+                                {
+                                    bool rebAddressIsEmpty = false;
+                                    bool rebCityIsEmpty = false;
+                                    bool rebStateIsEmpty = false;
+
+                                    string RebuttalAddress = reb.RebuttalAddress;
+                                    if (RebuttalAddress == null)
+                                    {
+                                        rebAddressIsEmpty = true;
+                                    }
+                                    string RebuttalState = reb.RebuttalState;
+                                    if (RebuttalState == null)
+                                    {
+                                        rebStateIsEmpty = true;
+                                    }
+                                    string RebuttalCity = reb.RebuttalCity;
+                                    if (RebuttalCity == null)
+                                    {
+                                        rebCityIsEmpty = true;
+                                    }
+                                    <div class="content-area">
+
+                                        <h4>@Html.DisplayFor(model => reb.RebuttalTitle)</h4><br>
+
+                                            <strong>For:</strong> @Html.DisplayFor(model => model.CompanyorIndividual)<br>
+                                            <strong>Posted on:</strong><small> @Html.DisplayFor(model => reb.RebuttalDateCreated) - @Html.DisplayFor(model => reb.RebuttalTimeCreated)</small><br>
+                                            <strong>Reponse by:</strong> @Html.DisplayFor(model => reb.RebuttalDisplayName)<br>
+
+
+                                            @if (!rebCityIsEmpty)
+                                            {
+                                                
+                                                    <strong>City:</strong> @Html.DisplayFor(model => reb.RebuttalCity)
+
+                                                
+                                            }
+
+                                            @if (!rebStateIsEmpty)
+                                            {
+                                                
+                                                    <strong>State:</strong> @Html.DisplayFor(model => reb.RebuttalState)
+
+                                                
+                                            }
+                                            @if (!rebAddressIsEmpty)
+                                            {
+
+                                                <strong>Address:</strong> @Html.DisplayFor(model => reb.RebuttalAddress)
+
+                                            }
+                                        <br>
+                                        <p>@Html.Raw(HttpUtility.HtmlDecode(@reb.RebuttalText))</p>
+                                        <p></p>
+                                    </div>
+                                       
+
+                                }
+
+
+                            }
+                        </div>
+                        <div class="clearfix">
+                            @{
+                                bool updateIsEmpty = false;
+
+                                int update = Model.ReportUpdateViewModels.Count;
+
+                                if (update == 0)
+                                {
+                                    updateIsEmpty = true;
+                                }
+                            }
+                            @if (!updateIsEmpty)
+                            {
+                                if (update == 1)
+                                {
+                                    <h4><strong><i>1 Report Update</i></strong></h4>
+                                    <hr>
+                                }
+                                else
+                                {
+                                    <h4><strong><i>@update Report Updates</i></strong></h4>
+                                    <hr>
+                                }
+
+                                foreach (var up in Model.ReportUpdateViewModels)
+                                {
+
+                                    <div id="content-area">
+                                      
+                                        <strong>Posted on:</strong><small> @Html.DisplayFor(model => up.ReportUpdateDateCreated) - @Html.DisplayFor(model => up.ReportUpdateTimeCreated)</small><br>
+                                            
+                                        @Html.Raw(HttpUtility.HtmlDecode(@up.ReportUpdateText)) <br><br>
+                                        @foreach (var upd in Model.LegalAdviceViewModels)
+                                        {
+                                            if (up.ReportUpdateId == upd.ReportUpdateId)
+                                            {
+                                                <strong>Rip-Off NG&trade; Legal: </strong><i class="text-success">@Html.DisplayFor(model => upd.UpdateAdvice)</i>
+                                                @*<h4><strong><i>@upd.UpdateAdvice</i></strong></h4>*@
+
+                                            }
+                                            else
+                                            { }
+                                        }
+                                        <p></p>
+                                    </div>
+
+                                }
+
+                            }
+                        </div>
+
+
+                        <div class="clearfix">
+                            @{
+                                bool threadIsEmpty = false;
+
+                                int thread = Model.ThreadViewModels.Count;
+
+                                if (thread == 0)
+                                {
+                                    threadIsEmpty = true;
+                                }
+                            }
+
+                            @if (!threadIsEmpty)
+                            {
+                                if (thread == 1)
+                                {
+                                    <h4><strong><i>&nbsp;&nbsp; @thread Comment</i></strong></h4>
+                                    <hr>
+                                }
+                                else
+                                {
+                                    <h4><strong><i>&nbsp;&nbsp; @thread Comments</i></strong></h4>
+                                    <hr>
+                                }
+
+                                foreach (var th in Model.ThreadViewModels)
+                                {
+
+                                    <div id="comments" class="comments">
+
+                                        <div class="comment-item">
+
+                                            <!-- user-avatar -->
+                                            <span class="user-avatar">
+                                                <img class="media-object" src="~/ProfilePhoto/@th.ThreadImageName" width="44" height="44" alt="">
+                                            </span>
+
+                                            <div class="media-body">
+                                                @if (Request.IsAuthenticated && ViewData.ContainsKey("DisplayName"))
+                                                {
+
+                                                    @Html.ActionLink("Reply", "DisplayReplySection", "Report", new { page = @th.ThreadId, randRid = Model.ReportId }, new { data_modal = "", id = "btnCreate", @class = "comment-reply" })
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink("Reply", "Login", "Account", null, new { @class = "comment-reply" })
+                                                }
+
+                                                <h4 class="media-heading bold">@Html.DisplayFor(model => th.ThreadDisplayName)</h4>
+                                                <small class="block">@Html.DisplayFor(model => th.ThreadDateCreated) - @Html.DisplayFor(model => th.ThreadTimeCreated)</small>
+                                                @Html.Raw(HttpUtility.HtmlDecode(@th.ThreadText))
+                                                @foreach (var com in Model.CommentViewModels)
+                                                {
+                                                    if (th.ThreadId.Equals(com.ThreadId))
+                                                    {
+                                                         <!-- comment reply -->
+                                                        <div class="media">
+
+                                                            <!-- user-avatar -->
+                                                            <span class="user-avatar">
+                                                                <img class="media-object" src="~/ProfilePhoto/@com.CommentImageName" width="44" height="44" alt="">
+                                                            </span>
+
+                                                            <div class="media-body">
+                                                                <h4 class="media-heading bold">@Html.DisplayFor(model => com.CommentDisplayName)</h4>
+                                                                <small class="block">@Html.DisplayFor(model => com.CommentDateCreated) - @Html.DisplayFor(model => com.CommentTimeCreated)</small>
+                                                                @Html.Raw(HttpUtility.HtmlDecode(@com.CommentText))
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    { }
+                                                }
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                        }
+
+                              }
+                        </div>
+                       
+                        <div class="clearfix">
+                            <div class="btn-row">
+                                @*if (Request.IsAuthenticated && ViewData.ContainsKey("DisplayName"))*@
+                                @{
+                                    HtmlToText convert = new HtmlToText();
+
+                                    string PageTitle = Model.CompanyorIndividual + " : " + convert.Convert(Model.ReportText).Substring(0, 50);
+                                    string sm_PageTitle = Regex.Replace(PageTitle, "[^A-Za-z0-9]", "-");
+                                    string id = Guid.NewGuid().ToString();
+                                    <hr>
+                                    @Html.ActionLink("Add comment", "Thread", "Report", new { title = sm_PageTitle, page = Model.ReportId,iD = id}, new { @class = "login pull-right" })
+
+                                }
+
+                            </div>     
+                        </div>
+                  
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3 col-sm-4">
+                <aside>
+
+                    <div class="sidebar">
+
+                        <h2 class="text-center">Related</h2>
+
+                        <div class="box">
+                            <div class="btn-bg-color-3">
+
+                            </div>
+
+                            <div class="text-box">
+                                @{
+                                    string idQ = Guid.NewGuid().ToString();
+                                    int Count = Model.RelatedReportedCompanyViewModels.Count;
+                                }
+                                @if (Count <= 1)
+                                {
+                                    <small style="font-size:small">
+                                        <b>Victim of same rip-off?</b>
+                                        <a href="@Url.Action("Create", "Report", null,null)" class="btn text-danger">
+                                            @*<i class="fa fa-file-text-o"></i>*@ <b>FILE A COMPLAINT NOW!!!</b>
+                                        </a>
+                                        <div class="clearfix">
+                                        </div>
+                                    </small>
+                                }
+
+                                else
+                                {
+                                    <div>
+                                        @foreach (var item in Model.RelatedReportedCompanyViewModels)
+                                        {
+                                            if (Model.ReportId == item.ReportId)
+                                            {
+                                                item.ReportText = null;
+                                            }
+                                            string relReport = @TruncateAtWord(item.ReportText, 50);
+                                            <div>
+                                                <small style="font-size:small">
+                                                    <a href="@Url.Action("ReportDetails","Report", new {title=ViewBag.PageTitle,page = item.ReportId,iD = idQ},null)" class="btn-login">
+                                                        @relReport
+                                                    </a>
+                                                </small>
+                                                <p>
+                                            </div>
+
+                                        }
+                                    </div>
+                                }
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </aside>
+
+            </div>
+            
+
+        </div>
+
+    </div>
+
+<section class="call-action-section">
+
+    <div class="container">
+
+        <div class="text-box" style="text-align:center;">
+
+            <h2>We Help Consumers Make Better Choices in the Marketplace</h2>
+
+            <p>
+                The protection of your right as a consumer is our paramount concern.
+
+            </p>
+
+        </div>
+
+        <a href="@Url.Action("Register", "Account", new {},null)" class="btn-get">Get Registered Now</a>
+    </div>
+
+</section>
+
+
+<script src="~/Scripts/modalform.js"></script>
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

@@ -1,0 +1,224 @@
+﻿@using PagedList.Mvc;
+@model everything.ViewModels.UserReportViewModel
+@using everything.Helpers
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+
+
+@{
+    ViewBag.Title = "Complaints";
+}
+
+<style type="text/css">
+
+    .example1 {
+        vertical-align: super
+            
+    }
+    .pagination>li>a,
+     .pagination>li>span 
+    { border-radius: 50% !important;margin: 0 5px;}
+
+        ad-img {
+      filter: none; /* IE6-9 */
+        -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+        box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+        margin-bottom:20px;
+    }
+
+    ad-img:hover {
+      filter: none; /* IE6-9 */
+      -webkit-filter: grayscale(0); /* Google Chrome, Safari 6+ & Opera 15+ */
+ 
+    }
+
+</style>
+<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.timeago.js")"></script>
+
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+<section class="resumes-section padd-tb">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-8">
+                <div class="resumes-content">
+                    
+                    <h2>Rip-Off NG<span class="example1"><i class="fa fa-trademark" aria-hidden="true" style="font-size:7px"></i></span> Reports | Complaints</h2>
+                    <span class="m-b-xs h5 block text-black">
+                        We do <b class="text-danger">NOT</b> alter complaints filed against individuals or companies.
+                    </span>
+                    <br>
+                    <span class="m-b-xs h5 block text-black">
+                        We do <b class="text-danger">NOT</b> remove complaints from our database.
+                    </span> 
+                    <br>
+                    <br>
+                    <br>
+                    
+                @foreach (var item in Model.ReportsWithOwners.Select((x, b) => new { Data = x, Index = b }))
+                {
+
+                    bool ReportImagesExistFlag = item.Data.ReportImagesExist;
+                    bool ReportVideosExistFlag = item.Data.ReportVideosExist;
+                    bool ThreadsExistFlag = item.Data.ThreadsExist;
+                    bool RebuttalsExistFlag = item.Data.RebuttalsExist;
+                    bool CaseUpdatesExistFlag = item.Data.CaseUpdatesExist;
+                    bool ReportUpdateExistFlag = item.Data.ReportUpdateExist;
+                    <div class="box">
+                        
+                        <div class="frame">
+                        <span>@(item.Index + ((Model.ReportsWithOwners.PageNumber - 1) * Model.ReportsWithOwners.PageSize) + 1)<br></span>
+                            
+                                @*Report #@Html.DisplayFor(modelItem => item.Data.ReportId)*@
+                        
+                        </div>
+                        
+                        <div class="text-box">
+                            <p>
+                                <a href="@Url.Action("ReportDetails","Report", new {title=item.Data.PageTitle, page=item.Data.ReportId, iD=item.Data.RandomId},null)">
+                                    @Html.Raw(HttpUtility.HtmlDecode(@TruncateAtWord(@item.Data.ReportText, 200)))
+                                </a>
+                             </p>
+                            <div class="clearfix"> 
+                                 <strong><i class="fa fa-map-marker"></i>@Html.DisplayFor(modelItem => item.Data.CategoryName) | @Html.DisplayFor(modelItem => item.Data.TopicName)</strong>
+                                 <strong><i class="fa fa-clock-o"></i>@Html.Timeago(item.Data.DateCreated)</strong> 
+                            </div>
+                            <div class="clearfix">
+                               <strong>
+                                    @if (ReportImagesExistFlag)
+                                    {
+
+                                        <i class="fa fa-picture-o fa-lg"></i>@:-<small>@Html.DisplayFor(modelItem => item.Data.ReportImagesCount)</small>
+                                    }
+  
+                                    @if (RebuttalsExistFlag == true)
+                                    {
+                                        <i class="fa fa-reply fa-lg"></i>@:-<small>@Html.DisplayFor(modelItem => item.Data.RebuttalsCount)</small>
+                                    }
+                                    @if (ThreadsExistFlag == true)
+                                    {
+                                        <i class="fa fa-comments-o fa-lg"></i>@:-<small>@Html.DisplayFor(modelItem => item.Data.ThreadsCount)</small>
+                                    }
+                                    @if (CaseUpdatesExistFlag == true)
+                                    {
+                                        <i class="fa fa-legal fa-lg"></i>
+                                    }
+                                    @if (ReportUpdateExistFlag == true)
+                                    {
+
+                                        <i class="fa fa-files-o fa-lg"></i>@:-<small>@Html.DisplayFor(modelItem => item.Data.ReportUpdateCount)</small>
+                                    }
+                                    @if (ReportVideosExistFlag == true)
+                                    {
+
+                                        <i class="fa fa-video-camera fa-lg"></i>@:-<small>@Html.DisplayFor(modelItem => item.Data.ReportVideoCount)</small>
+                                    }
+
+                            </strong>
+                            </div>
+                        </div>
+
+                        </div>
+                }
+
+                    <b>Page @(Model.ReportsWithOwners.PageCount < Model.ReportsWithOwners.PageNumber ? 0 : Model.ReportsWithOwners.PageNumber) of @Model.ReportsWithOwners.PageCount</b>
+                    <span>
+
+                    @Html.PagedListPager(Model.ReportsWithOwners, page => Url.Action("Index", new {page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))
+                    </span>
+                   
+                   
+                </div>
+                
+            </div>
+
+            <div class="col-md-3 col-sm-4">
+
+                <aside>
+                    <div id="loading"><img src="~/images/ajax-loader.gif"></div>
+                    <div id="recentQuestions">
+                    </div>
+
+                    
+                    @*<div class="col-md-12 col-sm-12">
+                        <div class="thumbnail">
+                            <a href="#"><img src="~/images/rip-off_naija.gif" alt="img"></a>
+                        </div>
+
+                    </div>*@
+                </aside>
+                @*<small style="color:grey;font-size:xx-small" >Advertisement</small>*@
+               <div class="col-md-12 col-sm-4 col-xs-12"><a href="@Url.Action("Create", "Question", new {},null)"><img src="~/images/ask2buynew120x600.jpg" alt="Ask2Buy" class="ad-img img-responsive"/></a></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery("abbr.timeago").timeago();
+    });
+</script>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}
+
+<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+<script src="~/SignalR/hubs"></script>
+
+<script type="text/javascript">
+        $(function () {
+
+            $("#loading").show();
+
+            var notificationFromHub = $.connection.realQuestionsHub;
+
+            $.connection.hub.start().done(function () {
+                FetchAllRecentComplaints();
+            });
+
+            notificationFromHub.client.updatedClients = function () {
+                FetchAllRecentComplaints();
+            };
+        });
+
+        function FetchAllRecentComplaints() {
+            var model = $('#recentQuestions');
+            $.ajax({
+                    url: '@Url.Action("GetTopRecentQuestions", "LatestReports")',
+                    contentType: 'application/html ; charset:utf-8',
+                    type: 'GET',
+                    dataType: 'html'
+                })
+                .success(function (result)
+                {
+                    model.empty().append(result);
+                    $("#loading").hide();
+                })
+        }
+</script>

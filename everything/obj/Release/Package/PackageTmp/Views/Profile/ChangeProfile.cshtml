@@ -1,0 +1,187 @@
+﻿@model everything.ViewModels.EditProfileViewModel
+@{
+    ViewBag.Title = "Change profile";
+}
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+<section class="signup-section">
+
+    <div class="container">
+
+        <div class="holder">
+            <div class="thumb"><img src="~/ProfilePhoto/@Model.ImageName" alt="Profile Image"></div>
+            @using (Html.BeginForm("ChangeProfile", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                <div class="form-group ">
+                    Email
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email", @class = "form-control", @title = "You'll use this when you want to log in and if you ever need to reset your password." })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                    First Name
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "First Name", @class = "form-control"})
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                    Last Name
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.LastName, new { @placeholder = "Last Name", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    Phone Number
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @placeholder = "Phone Number", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                    Address
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Address, new { @placeholder = "Address", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                        <dl class="dl-horizontal">
+                            <dt>City:</dt>
+                            <dd>
+                                <p>@Html.DisplayFor(m => m.CityName)</p>
+                            </dd>
+                        </dl>
+                    <dl class="dl-horizontal">
+                        <dt>State:</dt>
+                        <dd>
+                            <p>@Html.DisplayFor(m => m.StateName)</p>
+                        </dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Country:</dt>
+                        <dd>
+                            <p>@Html.DisplayFor(m => m.CountryName)</p>
+                        </dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Change Nationality:</dt>
+                        <dd>
+                            <button type="button" name="operation" id="process" class="btn-link">Change Nationality</button>
+                        </dd>
+                    </dl>
+
+                    </div>
+                <div id="divProcessing">
+                    <div class="form-group ">
+                        Country
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.Country as System.Collections.IEnumerable, "CountryId", "Name"), "Please select a country", new { @class = "form-control", id = "dllCountry" })
+                            @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        State
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.StateId, new SelectList(Enumerable.Empty<SelectListItem>(), "StateId", "Name"), "Please select a state", new { @class = "form-control", id = "ddlUState" })
+                            @Html.ValidationMessageFor(m => m.StateId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        City
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(m => m.CityId, new SelectList(Enumerable.Empty<SelectListItem>(), "CityId", "Name"), "Please select a city", new { @class = "form-control", id = "ddlUCity" })
+                            @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="Update" />
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+        $('#process').on('click', function () {
+            $("#divProcessing").show();
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#dllCountry").change(function () {
+            var countryId = $(this).val();
+            $.getJSON("../Profile/GetStateByCountryId", { countryid: countryId },
+                   function (stateData) {
+                       var select = $("#ddlUState");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Please select a state"
+                       }));
+                       $.each(stateData, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        });
+
+     }
+
+     );
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#ddlUState").change(function () {
+            var stateId = $(this).val();
+
+            $.getJSON("../Profile/GetCityByStateId", { stateid: stateId },
+                   function (cityData) {
+                       var select = $("#ddlUCity");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Please select a city"
+                       }));
+                       $.each(cityData, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        })
+    });
+</script>
+
+}

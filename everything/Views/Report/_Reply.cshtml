@@ -1,0 +1,29 @@
+﻿@model everything.ViewModels.CommentReplyViewModel
+
+<style>
+    .confinedSpace
+    {
+         resize:vertical;
+        max-height:300px; 
+        min-height:200px;
+        max-width: 350px;
+        min-width: 300px;
+
+    }
+ </style>
+
+<div class="col-md-12 col-sm-12">
+    <small>
+            <strong><i class="fa fa-reply"></i> Reply to:</strong>    @Html.DisplayFor(model => model.ThreadText)
+    </small>
+    <br>
+    <br>
+    <strong>
+        <textarea type="text" class="confinedSpace" id="imgCaption" name="imgCaption" placeholder="Enter your reply" autofocus="autofocus" />
+    </strong>
+</div>
+
+
+        
+            
+        

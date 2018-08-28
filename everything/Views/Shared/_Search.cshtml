@@ -1,0 +1,89 @@
+﻿@*@model everything.ViewModels.KeyViewModel*@
+<style type="text/css">
+
+  
+.input-search {
+        border: 4px solid #dadada;
+         border-radius: 30px;
+}
+
+.input-search:focus {
+            /*border: 4px solid #1b8af3;
+         border-radius: 20px;*/
+       outline: none;
+      border-radius: 20px;
+    border-color: #1b8af3;
+    box-shadow: 0 0 0px #1b8af3;
+}
+</style>
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //$(document).tooltip();
+        $("#keyword").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    url: "@Url.Action("Index", "SearchWidget")",
+                    type: "POST",
+                dataType: "json",
+                data: { keyword: request.term },
+                success: function (data) {
+
+                    response($.map(data, function (item) {
+                        if (item.company === "" || item.company === null) {
+                        }
+                        return { label: item.company + " in " + item.Topic + " | " + item.Category, value: item.company + " in " + item.Topic + " | " + item.Category, page: item.page, title: item.title, id: item.iD };
+
+                    }))
+
+                }
+            })
+            },
+            select: function (event, ui) {
+                
+                if (ui.item != null)
+                {
+                    location.href = "https://www.ripoff.com.ng/Report/ReportDetails/" + ui.item.id + "/?title=" + ui.item.title + "&page=" + ui.item.page;
+                }    
+
+        },
+            minLength: 1,
+            // mustMatch implementation
+            change: function (event, ui) {
+                if (ui.item === null) {
+                    $(this).val('');
+                    $('#keyword_id').val('');
+                }
+            }
+        });
+    })
+</script>
+
+
+<!--formclass = search-form-->
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12 col-md-offset-0">
+            
+            @using (Html.BeginForm("SearchIndex", "SearchWidget", FormMethod.Get, new { @class = "horizontal-form", role = "form" }))
+            {
+
+                <div class="form-group has-feedback">
+                    <label for="search" class="sr-only">Search</label>
+                    <input type="text" name="keyword" id ="keyword" value="" placeholder="Search business / person / report#" class="form-control input-search" title="Search a complaint by entering business name, individual or report#"/>
+                             
+                       <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

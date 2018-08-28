@@ -1,0 +1,368 @@
+﻿
+@model everything.Models.Report
+@{
+    ViewBag.Title = "File a complaint";
+}
+<style>
+        .example1 {
+        vertical-align: super
+            
+    }
+</style>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/tinymce/tinymce.min.js")" type="text/javascript"></script>
+<!-- Script to wire up your TinyMCE editor -->
+<script type="text/javascript">
+        // Initialize your tinyMCE Editor with your preferred options
+    tinyMCE.init({
+        // General options
+
+        mode: "textareas",
+        theme: "modern",
+
+        height: "300",
+        width: "790",
+        verify_html: false,
+
+        plugins: "smileys,emoticons,image",
+        toolbar: 'smileys,emoticons,insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons',
+
+        // Theme options
+        theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+        theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_resizing: false,
+        auto_convert_smileys: true,
+        relative_urls: false,
+
+        setup: function (ed) {
+            ed.on('keyup', function (e) {
+                var count = CountCharacters();
+                document.getElementById("character_count").innerHTML = "Character count: " + count;
+                if (count < 100) {
+                    $("#error").text("Your report must be minimum 100 characters");
+                }
+                else {
+                    $("#error").text("");
+                }
+
+            })
+        },
+
+        
+            // Example content CSS (should be your site CSS)
+            content_css: "../Content/custom.css",
+        });
+</script>
+
+
+
+<script src="~/Scripts/jquery.accordion.js"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+<section class="resum-form padd-tb">
+
+    <div class="container">
+
+    
+        @using (Html.BeginForm("Create", "Report", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "cForm", name = "cForm" }))
+        {
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="form-group col-md-12 col-sm-12">
+                    <i class="text-muted">Please note that:</i>
+                    <p><small class="text-muted">You are to give details and context about your report</small>
+                    <p><small class="text-muted">You are to include the address of Company or Individual you are reporting. If the Company or Individual is only on the Internet, or you don't have a physical address, you MAY enter their Web address. Fields can be left blank but providing this information may also be helpful to other victims reading your <strong>Rip-Off NG<i class="fa fa-trademark example1" aria-hidden="true" style="font-size:7px"></i></strong> report. </small>
+                    <p><span class="text-danger">Required fields are marked * </span>
+                </div>
+                <div class="form-group col-md-8 col-sm-8">
+                    <em><strong>Title<b class="text-danger">*</b></strong></em>
+                    @Html.TextBoxFor(model => model.Title, new { @autofocus = "autofocus", @class = "form-control", @placeholder = "Enter title for your complaint", @Required = "Required" })
+                    <small>@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })</small>
+
+                </div>
+                <div class="form-group col-md-12 col-sm-12">
+                    <em><strong>Write your complaint <b class="text-danger">*</b></strong><strong class="text-danger">&nbsp; @ViewBag.StatusMessage</strong></em>
+                    <span id="character_count"></span>
+                    <span id="error" class="text-danger"></span>
+                    @Html.TextAreaFor(model => model.ReportText)
+                    <small>@Html.ValidationMessageFor(model => model.ReportText, "", new { @class = "text-danger" })</small>
+
+                </div>
+
+                 <div class="form-group col-md-6 col-sm-6">
+                        <em><strong>State of the company or individual </strong></em>
+                        @Html.DropDownListFor(model => model.StateId, new SelectList(ViewBag.State as System.Collections.IEnumerable, "StateId", "Name"), "Please select a state", new { @class = "form-control", id = "dllState" })
+                        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group col-md-6 col-sm-6">
+                    <em><strong>City of the company or individual </strong></em>
+                    @Html.DropDownListFor(model => model.CityId, new SelectList(Enumerable.Empty<SelectListItem>(), "CityId", "Name"), "Please select a city", new { @class = "form-control", id = "ddlCity" })
+                    @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group col-md-6 col-sm-6">
+                    <em><strong>Topic <b class="text-danger">*</b></strong></em>
+                    @Html.DropDownListFor(model => model.TopicId, new SelectList(ViewBag.Topic as System.Collections.IEnumerable, "TopicId", "Name"), "Please select a topic", new { @class = "form-control", id = "dllTopic" , @Required = "Required" })
+                    @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group col-md-6 col-sm-6">
+                    <em><strong>Category <b class="text-danger">*</b></strong></em>
+                    @Html.DropDownListFor(model => model.CategoryId, new SelectList(Enumerable.Empty<SelectListItem>(), "CategoryId", "Name"), "Please select a category", new { @class = "form-control", id = "ddlCat" , @Required = "Required" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group col-md-6 col-sm-6">
+
+                    <em><strong>Name of company or individual you are reporting <b class="text-danger">*</b></strong></em>
+                    @Html.TextBoxFor(model => model.CompanyorIndividual, new { @placeholder = "Name of company or individual you are reporting", @Required = "Required" })
+                    <small>@Html.ValidationMessageFor(model => model.CompanyorIndividual, "", new { @class = "text-danger" })</small>
+
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <em><strong>Street Address</strong></em>
+                    @Html.TextBoxFor(model => model.Address, new { @placeholder = "Street address of the company or individual you are reporting" })
+                    <small>@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })</small>
+
+                </div>
+
+                <div class="accordion-style-1">
+
+                    <div class="col-md-4 col-sm-4">
+
+                        <h4>Contact detail(s)</h4>
+
+                        <div class="cp_aaccordion-row">
+
+                            <div class="accordion_cp" id="section9"><span><i class="fa fa-minus"></i></span>Contact information </div>
+
+                            <div class="contain_cp_accor">
+
+                                <div class="content_cp_accor">
+
+                                    <ul>
+
+                                        <li>
+
+                                            <div class="form-group col-md-12 col-sm-12 ">
+                                                <em><strong>Telephone</strong></em>
+                                                @Html.EditorFor(model => model.ContactNumber, new { @placeholder = "Telephone of the company or individual" })
+                                                <small>@Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })</small>
+
+                                            </div>
+
+                                        </li>
+
+                                        <li>
+
+                                            <div class="form-group col-md-12 col-sm-12">
+                                                <em><strong>Email </strong></em>
+                                                @Html.EditorFor(model => model.Email, new { @placeholder = "Email of the company or individual" })
+                                                <small>@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })</small>
+
+                                            </div>
+
+                                        </li>
+
+                                        <li>
+                                            <div class="form-group col-md-12 col-sm-12">
+                                                <em><strong>Web address</strong></em>
+                                                @Html.EditorFor(model => model.Website, new { @placeholder = "Web address of the company or individual on the internet" })
+                                                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+
+                        <h4>Additional Information</h4>
+
+                        <div class="cp_aaccordion-row">
+
+                            <div class="accordion_cp" id="section10"><span><i class="fa fa-chevron-right"></i></span>Additional Information </div>
+
+                            <div class="contain_cp_accor">
+
+                                <div class="content_cp_accor">
+
+                                    <ul>
+
+                                        <li>
+                                            <em><strong>Did you use credit card? </strong></em>
+                                            <div class="checkbox form-group col-md-12 col-sm-12">
+                                                Yes:  @Html.RadioButtonFor(m => m.CreditCard, "True")
+                                                @Html.ValidationMessageFor(model => model.CreditCard, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="checkbox form-group col-md-12 col-sm-12">
+                                                No:  @Html.RadioButtonFor(m => m.CreditCard, "False", new { @checked = "checked" })
+                                                @Html.ValidationMessageFor(model => model.CreditCard, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                        </li>
+
+                                        <li>
+                                            <em><strong>Was it an online transaction?</strong></em>
+                                            <div class="checkbox form-group col-md-12 col-sm-12">
+                                                Yes:  @Html.RadioButtonFor(m => m.OnlineTransaction, "True")
+                                                @Html.ValidationMessageFor(model => model.OnlineTransaction, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="checkbox form-group col-md-12 col-sm-12">
+                                                No:  @Html.RadioButtonFor(m => m.OnlineTransaction, "False", new { @checked = "checked" })
+                                                @Html.ValidationMessageFor(model => model.OnlineTransaction, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="btn-col">
+                        
+                        <input type="submit" value="Complete" name="operation" id="process">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+        <div id="divProcessing">
+            <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+
+        function CountCharacters() {
+            var body = tinymce.get("ReportText").getBody();
+            var content = tinymce.trim(body.innerText || body.textContent);
+            return content.length;
+        };
+
+
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#cForm").submit(function (event) {
+
+            var min = 100;
+
+            var count = CountCharacters();
+            if (count < min) {
+                return false;
+            }
+
+            var isValid = $('#cForm').valid();
+            if (isValid) {
+                tinyMCE.triggerSave();
+                $("#divProcessing").show();
+                $('#process').hide();
+             }
+    });
+
+</script>
+<script type="text/javascript">
+     $(document).ready(function () {
+         $("#dllState").change(function () {
+             var stateId = $(this).val();
+             $.getJSON("../Report/GetCityByStateId", { stateid: stateId },
+                    function (cityData) {
+                        var select = $("#ddlCity");
+                        select.empty();
+                        select.append($('<option/>', {
+                            value: 0,
+                            text: "Please select a city"
+                        }));
+                        $.each(cityData, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                    });
+         });
+
+         $("#dllTopic").change(function () {
+             var topicId = $(this).val();
+             $.getJSON("../Report/GetCategoryByTopicId", { topicid: topicId },
+                    function (catData) {
+                        var select = $("#ddlCat");
+                        select.empty();
+                        select.append($('<option/>', {
+                            value: 0,
+                            text: "Please select a category"
+                        }));
+                        $.each(catData, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                    });
+         });
+
+     }
+
+     );
+</script>
+}

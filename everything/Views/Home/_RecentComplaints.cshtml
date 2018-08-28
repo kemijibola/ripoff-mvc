@@ -1,0 +1,55 @@
+﻿@using everything.Helpers
+@using System.Text.RegularExpressions;
+@using everything.ViewModels;
+
+
+<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.timeago.js")"></script>
+
+<div class="sidebar">
+    <div class="box">
+
+        <div class="text-box">
+            <a class="btn-time" style="background:#3694f4">Recent complaints</a>
+
+            <div class="recent-post">
+
+                <ul>
+                    @foreach (var rep in (List<IndexReportViewModel>)ViewBag.Complaints)
+                    {
+                        var convert = new HtmlToText();
+
+                        string PageTitle = rep.CompanyorIndividual + " : " + convert.Convert(rep.ReportText).Substring(0, 50);
+                        string sm_PageTitle = Regex.Replace(PageTitle, "[^A-Za-z0-9]", "-");
+                        string id = Guid.NewGuid().ToString();
+
+                        <li>
+                            <small>
+                                <a href="@Url.Action("ReportDetails","Report", new {title=sm_PageTitle, page=rep.ReportId, iD=id},null)">
+                                    @Html.DisplayFor(model => rep.ReportText)
+                                </a>
+                            </small>
+                            <div class="text-area"> <a><i class="fa fa-user"></i>@Html.DisplayFor(model => rep.DisplayName)</a> <a><i class="fa fa-calendar"></i>@Html.Timeago(rep.DateCreated) </a> </div>
+
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+      
+            @*<a class="btn-apply" href="@Url.Action("Create", "Report", new {},null)">File complaint</a>*@
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery("abbr.timeago").timeago();
+    });
+
+
+</script>

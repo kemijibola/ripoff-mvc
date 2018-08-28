@@ -1,0 +1,84 @@
+﻿@model everything.Models.ApprovedLawyerRequest
+
+@{
+    ViewBag.Title = "Approve Request";
+}
+
+<script src="~/jss/jquery.js"></script>
+<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<div class="row">
+    @using (Html.BeginForm("Assign", "LegalService", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "adForm", name = "adForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*@Html.HiddenFor(model => model.ReportId)*@
+        <div class="col-lg-12">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active"><span>Reject Report</span></li>
+                    </ol>
+
+                    <h1>Reject Report</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <span><strong>Reject Report</strong></span>
+                        </header>
+
+                        <div class="main-box-body clearfix">
+                            <input type="hidden" name="LawyerRequestId" id="LawyerRequestId" value="@ViewBag.LawyerRequestId" />
+                            <div class="form-group">
+                                @Html.DropDownListFor(m => m.LawFirmId, new SelectList(ViewBag.Lawfirms as System.Collections.IEnumerable, "LawfirmId", "FirmName"), "Select lawfirm", new { @class = "form-control", @Required = "Required" })
+                                @Html.ValidationMessageFor(m => m.LawFirmId, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <input type="submit" value="Assign to Firm" name="operation" id="process" class="btn btn-success">
+
+                                </div>
+                            </div>
+                            <div id="divProcessing">
+                                <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to Requests", "Index")
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#adForm").submit(function (event) {
+
+                $("#divProcessing").show();
+                $('#process').hide();
+    });
+
+</script>

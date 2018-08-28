@@ -1,0 +1,277 @@
+﻿@model everything.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Edit User";
+}
+<style>
+    .dl-horizontal dt {
+        white-space: normal;
+    }
+</style>
+<script src="~/jss/jquery.js"></script>
+<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<div class="row">
+
+        <div class="col-lg-12">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active"><span>Edit Admin User</span></li>
+                    </ol>
+
+                    <h1>Edit Admin User</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h2>Admin Biodata - @Model.FullName</h2>
+                        </header>
+                    @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+                        @Html.HiddenFor(model => Model.Id)
+                        <div class="main-box-body clearfix">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Full Name - </label>
+                                <span class="form-control-static">@Model.FullName&nbsp;</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">UserName - </label>
+                                <span class="form-control-static">@Model.NameExtension&nbsp;</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Phone number</label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Address</label>
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Country</label>
+                                @Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.Country as System.Collections.IEnumerable, "CountryId", "Name"), "Please select a country", new { @class = "form-control", id = "dllCountry" })
+                                @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">State</label>
+                                @Html.DropDownListFor(m => m.StateId, new SelectList(Enumerable.Empty<SelectListItem>(), "StateId", "Name"), "Please select a state", new { @class = "form-control", id = "ddlAState" })
+                                @Html.ValidationMessageFor(m => m.StateId, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">City</label>
+                                @Html.DropDownListFor(m => m.CityId, new SelectList(Enumerable.Empty<SelectListItem>(), "CityId", "Name"), "Please select a city", new { @class = "form-control", id = "ddlACity" })
+                                @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button type="submit" class="btn btn-success">Update Biodata</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h2>Account Status - @Model.FullName</h2>
+                        </header>
+                            <div class="main-box-body clearfix">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Account Status</label>
+                                </div>
+                                <div class="form-group">
+                                    
+                                    @if (!Model.LockoutEnabled)
+                                    {
+                                        <div class="col-md-10">
+                                            <p class="form-control-static">This user cannot be locked out of his or her account.</p>
+                                        </div>
+                                    }
+
+                                    @*Unlocked*@
+                                    @if (Model.LockoutEnabled && (Model.LockoutEndDateUtc <= DateTime.Now || Model.LockoutEndDateUtc == null))
+                                    {
+                                        <div class="col-md-10">
+                                            <p class="form-control-static">Unlocked</p>
+                                        </div>
+
+                                        <div class="col-md-offset-2">
+                                            @using (Html.BeginForm("LockAccount", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.ValidationSummary()
+                                                @Html.HiddenFor(model => model.Id)
+                                                <input type="submit" value="Lock Account" class="btn btn-danger" />
+                                            }
+                                        </div>
+                                    }
+
+
+                                    @*Locked*@
+                                    @if (Model.LockoutEnabled && (Model.LockoutEndDateUtc > DateTime.Now))
+                                    {
+                                        <div class="col-md-10">
+                                            <p class="form-control-static">Locked-out until @Model.LockoutEndDateUtc (UTC)</p>
+                                        </div>
+
+                                        <div class="col-md-offset-2">
+                                            @using (Html.BeginForm("UnlockAccount", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.ValidationSummary()
+                                                @Html.HiddenFor(model => model.Id)
+                                                <input type="submit" value="Unlock Account" class="btn btn-success" />
+                                            }
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h2>Assigned Roles - @Model.FullName</h2>
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Roles</label>
+                            </div>
+                            <div class="form-group">
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary()
+                                    @Html.HiddenFor(model => model.Id)
+
+                                    <div class="form-group">
+                                        @Html.Label("Roles", new { @class = "control-label col-sm-2" })
+                                        <span class="col-sm-10">
+                                            @foreach (var item in Model.RolesList)
+                                        {
+                                                <input type="checkbox" name="RolesSelectedOnView" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+                                                @Html.Label(item.Value, new { @class = "control-label" }) <br />
+                                            }
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Update Role" class="btn btn-info" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#dllCountry").change(function () {
+            var countryId = $(this).val();
+            $.getJSON("../../Manage/GetStateByCountryId", { countryid: countryId },
+                   function (stateData) {
+                       var select = $("#ddlAState");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Please select a state"
+                       }));
+                       $.each(stateData, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        });
+
+     }
+
+     );
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#ddlAState").change(function () {
+            var stateId = $(this).val();
+
+            $.getJSON("../../Manage/GetCityByStateId", { stateid: stateId },
+                   function (cityData) {
+                       var select = $("#ddlACity");
+                       select.empty();
+                       select.append($('<option/>', {
+                           value: 0,
+                           text: "Please select a city"
+                       }));
+                       $.each(cityData, function (index, itemData) {
+                           select.append($('<option/>', {
+                               value: itemData.Value,
+                               text: itemData.Text
+                           }));
+                       });
+                   });
+        })
+    });
+</script>
+<script>
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#regForm").submit(function (event) {
+
+        var isValid = $('#regForm').valid();
+            if (isValid) {
+                $("#divProcessing").show();
+                $('#process').hide();
+             }
+    });
+
+</script>

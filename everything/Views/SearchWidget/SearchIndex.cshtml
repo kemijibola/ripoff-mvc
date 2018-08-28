@@ -1,0 +1,298 @@
+﻿@using everything.Helpers
+@using PagedList.Mvc;
+@model PagedList.IPagedList<everything.Models.Report>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+
+<style>
+    .mb20 {
+        margin-bottom: 20px;
+    }
+
+    hgroup {
+        padding-left: 15px;
+        border-bottom: 1px solid #ccc;
+    }
+
+        hgroup h1 {
+            font: 500 normal 1.625em "Roboto",Arial,Verdana,sans-serif;
+            color: #2a3644;
+            margin-top: 0;
+            line-height: 1.15;
+        }
+
+        hgroup h2.lead {
+            font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif;
+            color: #2a3644;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+    .search-result .thumbnail {
+        border-radius: 0 !important;
+    }
+
+    .search-result:first-child {
+        margin-top: 0 !important;
+    }
+
+    .search-result {
+        margin-top: 20px;
+    }
+
+        .search-result .col-md-2 {
+            border-right: 1px dotted #ccc;
+            min-height: 140px;
+        }
+
+        .search-result ul {
+            padding-left: 0 !important;
+            list-style: none;
+        }
+
+            .search-result ul li {
+                font: 400 normal .85em "Roboto",Arial,Verdana,sans-serif;
+                line-height: 30px;
+            }
+
+                .search-result ul li i {
+                    padding-right: 5px;
+                }
+
+        .search-result .col-md-7 {
+            position: relative;
+        }
+
+        .search-result h3 {
+            font: 500 normal 1.375em "Roboto",Arial,Verdana,sans-serif;
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+
+            .search-result h3 > a, .search-result i {
+                color: #248dc1 !important;
+            }
+
+        .search-result p {
+            font: normal normal 1.125em "Roboto",Arial,Verdana,sans-serif;
+        }
+
+        .search-result span.plus {
+            position: absolute;
+            right: 0;
+            top: 126px;
+        }
+
+            .search-result span.plus a {
+                background-color: #248dc1;
+                padding: 5px 5px 3px 5px;
+            }
+
+                .search-result span.plus a:hover {
+                    background-color: #414141;
+                }
+
+                .search-result span.plus a i {
+                    color: #fff !important;
+                }
+
+        .search-result span.border {
+            display: block;
+            width: 97%;
+            margin: 0 15px;
+            border-bottom: 1px dotted #ccc;
+        }
+
+    .dropdown.dropdown-lg .dropdown-menu {
+        margin-top: -1px;
+        padding: 6px 20px;
+    }
+
+    .input-group-btn .btn-group {
+        display: flex !important;
+    }
+
+    .btn-group .btn {
+        border-radius: 0;
+        margin-left: -1px;
+    }
+
+        .btn-group .btn:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+    .btn-group .form-horizontal .btn[type="submit"] {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .form-group .form-control:last-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+
+    .adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+
+        .dropdown.dropdown-lg .dropdown-menu {
+            min-width: 500px;
+        }
+
+    .hr-line-dashed {
+        border-top: 1px dashed #E7EAEC;
+        color: #ffffff;
+        background-color: #ffffff;
+        height: 1px;
+        margin: 20px 0;
+    }
+</style>
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+<div class="clearfix">
+</div>
+@*<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            @using (Html.BeginForm("Index", "Search", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+
+            {
+                <div class="input-group" id="adv-search">
+                    @Html.TextBox("search", ViewBag.CurrentSearch as string, new { @autofocus = "autofocus", @class = "form-control input-lg", @placeholder = "Search business / person / report#", id = "Keyword" })
+                    <div class="input-group-btn">
+                        <button class="btn btn-lg btn-primary" type="submit" id="btnSubmit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>*@
+
+<div class="container">
+
+    <hgroup class="mb20">
+        <h1>Search Results</h1>
+        <h2 class="lead">
+            <strong class="text-danger">@Model.TotalItemCount</strong> results were found
+            <span class="clearfix borda"></span>
+
+            @if (Model.TotalItemCount != 0)
+            {
+                <b>Sort by:</b>
+                <em class="btn-link">@Html.ActionLink("Newest", "SearchIndex", new { sort = ViewBag.NewestSort, keyword = ViewBag.CurrentSearch })</em> <em class="btn-link"> @Html.ActionLink("Oldest", "SearchIndex", new { sort = ViewBag.OldestSort, search = ViewBag.CurrentSearch })</em>
+            }
+            else
+            {
+
+            }
+        </h2>
+
+    </hgroup>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+            HtmlToText convert = new HtmlToText();
+            string reportT = @TruncateAtWord(convert.Convert(item.ReportText).ToString(), 300);
+            <div class="col-md-12 col-sm-12">
+                <article class="search-result row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-9 excerpet">
+                        <h3><a href="#" title="">@item.CompanyorIndividual | @item.Category.Name</a></h3>
+
+                        <span class="m-b-xs h5 block text-black">
+                            @reportT
+                        </span>
+                        <hr>
+                    </div>
+                    <span class="clearfix borda"></span>
+                </article>
+            </div>
+
+        }
+        <div class="clearfix">
+        </div>
+        <div class="text-center">
+            <div class="btn-group">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("SearchIndex", new { page, sort = ViewBag.CurrentSort, keyword = ViewBag.CurrentSearch }))
+            </div>
+        </div>
+        @*<div class="col-md-4 col-sm-4">
+                <article class="search-result row">
+                    <div class="col-xs-12 col-sm-12 col-md-8">
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="~/images/rip-off_naija.gif" alt="img"></a>
+                    </div>
+                </article>
+
+                <article class="search-result row">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <a href="#" title="Lorem ipsum" class="thumbnail"><img src="~/images/rip-off_naija.gif" alt="img"></a>
+                    </div>
+                </article>
+
+            </div>*@
+    </div>
+</div>
+
+@functions
+{
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}
+
+
+<script>
+
+    $(document).ready(function () {
+
+        var t = $("#Keyword").val();
+        if (t == null)
+        {
+            $('#btnSubmit').attr('disabled', true);
+        }
+
+        $("#Keyword").bind('change keyup paste mouseup input propertychange', function () {
+            if (!$(this).val() || $(this).val() == "" || $(this).val() == null) {
+                $('#btnSubmit').attr('disabled', true);
+                $(this).focus();
+            }
+            else
+            {
+                $('#btnSubmit').attr('disabled', false);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,48 @@
+﻿@model everything.Models.AddPhoneNumberViewModel
+@{
+    ViewBag.Title = "Change phone number";
+}
+
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+<section class="signup-section">
+    <div class="container">
+        <div class="holder">
+            
+            @using (Html.BeginForm("AddPhoneNumber", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                <div class="form-group ">
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Number, new { @placeholder = "Enter Phone Number", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-default" value="Submit" />
+                        </div>
+                    </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

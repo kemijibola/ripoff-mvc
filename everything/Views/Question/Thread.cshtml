@@ -1,0 +1,692 @@
+﻿@using everything.Helpers
+@using System.Text.RegularExpressions;
+@using PagedList.Mvc;
+@model everything.ViewModels.FullQuestionViewModel
+
+
+@{
+    ViewBag.Title = ViewBag.Title;
+}
+
+<script src="~/Scripts/modalform.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+<script src="~/SignalR/hubs"></script>
+<script src="~/Scripts/questionLikeButton.js"></script>
+<link href="~/assets/layout.css" rel="stylesheet" />
+
+<style>
+    #share-buttons img {
+        width: 35px;
+        padding: 5px;
+        border: 0;
+        box-shadow: 0;
+        display: inline;
+    }
+
+    .panel-google-plus {
+        position: relative;
+        border-radius: 0px;
+        border: 0px solid rgb(216, 216, 216);
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .panel-google-plus > .dropdown {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+        }
+
+            .panel-google-plus > .dropdown > span > span {
+                font-size: 10px;
+            }
+
+            .panel-google-plus > .dropdown > .dropdown-menu {
+                left: initial;
+                right: 0px;
+                border-radius: 2px;
+            }
+
+        .panel-google-plus > .panel-google-plus-tags {
+            position: absolute;
+            top: 35px;
+            right: -3px;
+        }
+
+            .panel-google-plus > .panel-google-plus-tags > ul {
+                list-style: none;
+                padding: 0px;
+                margin: 0px;
+            }
+
+                .panel-google-plus > .panel-google-plus-tags > ul:hover {
+                    box-shadow: 0px 0px 3px rgb(0, 0, 0);
+                    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+                }
+
+                .panel-google-plus > .panel-google-plus-tags > ul > li {
+                    display: block;
+                    right: 0px;
+                    width: 0px;
+                    padding: 5px 0px 5px 0px;
+                    background-color: rgb(245, 245, 245);
+                    font-size: 12px;
+                    overflow: hidden;
+                }
+
+                    .panel-google-plus > .panel-google-plus-tags > ul > li::after {
+                        content: "";
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        height: 100%;
+                        border-right: 3px solid rgb(66, 127, 237);
+                    }
+
+                    .panel-google-plus > .panel-google-plus-tags > ul:hover > li,
+                    .panel-google-plus > .panel-google-plus-tags > ul > li:first-child {
+                        padding: 5px 15px 5px 10px;
+                        width: auto;
+                        cursor: pointer;
+                        margin-left: auto;
+                    }
+
+                .panel-google-plus > .panel-google-plus-tags > ul:hover > li {
+                    background-color: rgb(255, 255, 255);
+                }
+
+                .panel-google-plus > .panel-google-plus-tags > ul > li:hover {
+                    background-color: rgb(66, 127, 237);
+                    color: rgb(255, 255, 255);
+                }
+
+        .panel-google-plus > .panel-heading,
+        .panel-google-plus > .panel-footer {
+            background-color: rgb(255, 255, 255);
+            border-width: 0px;
+        }
+
+        .panel-google-plus > .panel-heading {
+            margin-top: 20px;
+            padding-bottom: 5px;
+        }
+
+            .panel-google-plus > .panel-heading > img {
+                margin-right: 15px;
+            }
+
+            .panel-google-plus > .panel-heading > h3 {
+                margin: 0px;
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            .panel-google-plus > .panel-heading > h5 {
+                color: rgb(153, 153, 153);
+                font-size: 12px;
+                font-weight: 400;
+            }
+
+        .panel-google-plus > .panel-body {
+            padding-top: 5px;
+            font-size: 13px;
+        }
+
+            .panel-google-plus > .panel-body > .panel-google-plus-image {
+                display: block;
+                text-align: center;
+                background-color: rgb(245, 245, 245);
+                border: 1px solid rgb(217, 217, 217);
+            }
+
+                .panel-google-plus > .panel-body > .panel-google-plus-image > img {
+                    max-width: 100%;
+                }
+
+        .panel-google-plus > .panel-footer {
+            font-size: 14px;
+            font-weight: 700;
+            min-height: 54px;
+            margin-bottom: 10px;
+        }
+
+            .panel-google-plus > .panel-footer > .btn {
+                float: left;
+                margin-right: 8px;
+            }
+
+            .panel-google-plus > .panel-footer > .input-placeholder {
+                display: block;
+                margin-left: 98px;
+                color: rgb(153, 153, 153);
+                font-size: 12px;
+                font-weight: 400;
+                padding: 8px 6px 7px;
+                border: 1px solid rgb(217, 217, 217);
+                border-radius: 2px;
+                box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+            }
+
+        .panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
+            display: none;
+        }
+
+        .panel-google-plus > .panel-google-plus-comment {
+            display: none;
+            padding: 10px 20px 15px;
+            border-top: 1px solid rgb(229, 229, 229);
+            background-color: rgb(245, 245, 245);
+        }
+
+        .panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
+            display: block;
+        }
+        /*.panel-google-plus > .panel-google-plus-comment > img {
+        float: left;
+    }*/
+        .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea {
+            float: right;
+            width: calc(100% - 56px);
+        }
+
+            .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > textarea {
+                display: block;
+                /*margin-left: 60px;
+        width: calc(100% - 56px);*/
+                width: 100%;
+                background-color: rgb(255, 255, 255);
+                border: 1px solid rgb(217, 217, 217);
+                box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+                resize: vertical;
+            }
+
+            .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+                margin-top: 10px;
+                margin-right: 8px;
+                width: 100%;
+            }
+
+            .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+                width: auto;
+            }
+
+
+
+        .panel-google-plus .btn {
+            border-radius: 3px;
+        }
+
+        .panel-google-plus .btn-default {
+            border: 1px solid rgb(217, 217, 217);
+            box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+        }
+
+            .panel-google-plus .btn-default:hover,
+            .panel-google-plus .btn-default:focus,
+            .panel-google-plus .btn-default:active {
+                background-color: rgb(255, 255, 255);
+                border-color: rgb(0, 0, 0);
+            }
+
+    .post {
+        max-width: 600px;
+    }
+
+    .dl-horizontal dt {
+        white-space: normal;
+    }
+</style>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/tinymce/tinymce.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+        // Initialize your tinyMCE Editor with your preferred options
+    tinyMCE.init({
+        // General options
+
+        mode: "textareas",
+        theme: "modern",
+
+        height: "150",
+        width: "50",
+        verify_html: false,
+
+        plugins: "smileys,emoticons,image",
+        toolbar: 'smileys,emoticons,insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons',
+
+        //plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+
+
+        //mode: "textareas",
+        //theme: "modern",
+        // Theme options
+        theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+        theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_resizing: false,
+        auto_convert_smileys: true,
+        relative_urls: false,
+
+
+
+        setup: function (ed) {
+            ed.on('keyup', function (e) {
+                var count = CountCharacters();
+                document.getElementById("character_count").innerHTML = "Character count: " + count;
+                if (count < 2)
+                {
+                    $("#error").text("Your answer must be minimum 2 characters");
+                }
+                else
+                {
+                    $("#error").text("");
+                }
+
+            })
+        },
+
+            // Example content CSS (should be your site CSS)
+        content_css: "../../Content/custom.css",
+
+
+
+    });
+</script>
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>Question Thread</h1>
+
+    </div>
+
+</section>
+
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-9">
+            <div class="[ panel-default] panel-google-plus">
+                @{
+                    string PageTitle = ViewBag.TitlePage;
+                    string Title = Regex.Replace(PageTitle, "[^A-Za-z0-9]", "-");
+                }
+                <div class="panel-google-plus">
+                    @*<em><a href="@Url.Action("Index","Question",null,null)">&nbsp;<i class="fa fa-backward"></i><strong>&nbsp; Categories</strong></a></em> |*@
+                    <em><a href="@Url.Action("QuestionList", "Question", new { title = Title, q = ViewBag.page }, null)"><i class="fa fa-backward fa-1x"></i>&nbsp;Back to Questions</a></em>
+
+                </div>
+
+                <div class="panel-heading">
+
+                    <a class="thumb-sm pull-left">
+                        <img src="~/ProfilePhoto/@Model.QuestionOwnerDP" alt="User profile picture" class="img-circle avatar">
+                    </a>
+                    <h3> &nbsp; @Html.DisplayFor(model => model.Title)</h3>
+                    <h5> &nbsp; <span>@Html.DisplayFor(model => model.QuestionOwner)</span> - <span>@Html.DisplayFor(model => model.DateAsked)</span><span> at @Html.DisplayFor(model => model.TimeAsked) </span></h5>
+                </div>
+                <div class="panel-body">
+                    <p>@Html.Raw(HttpUtility.HtmlDecode(Model.QuestionText))</p>
+                </div>
+                <strong>Share this on</strong>
+                <div id="share-buttons">
+
+                    <!-- Google+ -->
+                    <a href="https://plus.google.com/share?url=@ViewBag.absoluteUrl" target="_blank" src="share_button">
+                        <img src="../../images/googleplus.png" alt="Google" />
+                    </a>
+                    <!--Facebook -->
+                    <div class="fb-share-button"
+                         data-href="@ViewBag.absoluteUrl"
+                         data-layout="button_count">
+                    </div>
+                    <!--Twitter-->
+                    <a href="@ViewBag.absoluteUrl" class="twitter-share-button" data-show-count="true">Tweet</a>
+                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                </div>
+
+                <div class="panel-footer col-md-8 col-sm-8">
+                    <input type="hidden" id="UserId" class="logged-user" data-id="@Model.CurrentUser" />
+                    @{
+                        var status = Model.hasUserLiked;
+                        if (status)
+                        {
+                            <button data-question="@Model.QuestionId" type="button" class="like-button fa fa-thumbs-down btn btn-default" title="Click to like/unlike question">
+                                | <span class="like-count">@Model.QuestionLikes</span>
+                                @*Unlike*@
+                            </button>
+                        }
+                        else
+                        {
+                            <button data-question="@Model.QuestionId" type="button" class="like-button fa fa-thumbs-up fa fa-thumbs-up btn btn-default" title="Click to like/unlike question">
+                                | <span class="like-count">@Model.QuestionLikes</span>
+                                @*Like*@
+                            </button>
+                        }
+                    }
+
+                    <div class="input-placeholder"><em>Reply to @Model.QuestionOwner</em></div>
+
+                </div>
+
+                <div class="clearfix">
+                </div>
+                @*<hr>*@
+
+                <div class="panel-google-plus-comment">
+                    <a class="thumb-sm pull-left">
+                        <img src="~/ProfilePhoto/@ViewBag.loggedInUserImage" alt="Profile Picture" class="img-circle avatar">
+                    </a>
+                    <div class="panel-google-plus-textarea">
+
+                        <span id="character_count"></span>
+                        <span id="error" class="text-danger"></span>
+                        @using (Html.BeginForm("CreateAnswerToQuestion", "Question", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "subForm", name = "subForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <input type="hidden" name="QuestionId" id="QuestionId" value="@Model.QuestionId" />
+                                @Html.TextAreaFor(model => model.Answer)
+                                <div class="clearfix">
+                                </div>
+                                <input type="submit" class="btn btn-default" name="flowing" id="process" value="Post" />
+                                @*<button type="reset" class="[ btn btn-default ]" name="flowingC" id="processC">Cancel</button>*@
+                                <button type="reset" class="[ btn btn-default ]" name="close" id="close">Close</button>
+
+                        }
+                    </div>
+                    <div id="divProcessing">
+                        <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+
+
+                <div class="clearfix">
+
+                    @{
+                        bool answerIsEmpty = false;
+
+                        int answer = Model.AnswerToQuestionViewModels.Count;
+
+                        if (answer == 0)
+                        {
+                            answerIsEmpty = true;
+                        }
+                    }
+
+                    @if (!answerIsEmpty)
+                    {
+                        if (answer == 1)
+                        {
+                            <h4><strong><i>&nbsp;&nbsp; @answer Answer</i></strong></h4>
+                                <hr>
+                        }
+                        else
+                        {
+                            <h4><strong><i>&nbsp;&nbsp; @answer Answers</i></strong></h4>
+                                <hr>
+                        }
+
+                        foreach (var ans in Model.AnswerToQuestionViewModels)
+                        {
+                            <div id="comments" class="comments">
+
+                                <div class="comment-item">
+
+                                    <!-- user-avatar -->
+                                    <span class="user-avatar">
+                                        <img class="media-object" src="~/ProfilePhoto/@ans.AToQuestionOwnerDP" width="44" height="44" alt="">
+                                    </span>
+
+                                    <div class="media-body">
+                                        @{
+                                            string id = Guid.NewGuid().ToString();
+                                            string titleCat = Model.Title + "&" + Model.Discussion;
+                                        }
+                                        @Html.ActionLink("reply", "Reply", "Question", new { page = ans.AnswerToQuestionId, title = titleCat, iD = id }, new { @class = "comment-reply" })
+
+                                        <h4 class="media-heading bold">@Html.DisplayFor(model => ans.AToQuestionOwner)</h4>
+                                        <small class="block">@Html.DisplayFor(model => ans.AToCDateCommented) - @Html.DisplayFor(model => ans.AToTimeCommented)</small>
+                                        @Html.Raw(HttpUtility.HtmlDecode(@ans.AToQuestion))
+                                        @foreach (var com in Model.AnswerCommentViewModels)
+                                        {
+                                            if (ans.AnswerToQuestionId.Equals(com.AnswerToQuestionId))
+                                            {
+                                            <!-- comment reply -->
+                                                <div class="media">
+
+                                                    <!-- user-avatar -->
+                                                    <span class="user-avatar">
+                                                        <img class="media-object" src="~/ProfilePhoto/@com.ACommentOnwerDP" width="44" height="44" alt="">
+                                                    </span>
+
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading bold">@Html.DisplayFor(model => com.ACommentOwner)</h4>
+                                                        <small class="block">@Html.DisplayFor(model => com.ACDateCommented) - @Html.DisplayFor(model => com.ACTimeCommented)</small>
+                                                        @Html.Raw(HttpUtility.HtmlDecode(@com.AComment))
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            { }
+                                        }
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                                                }
+
+                                            }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4">
+            <div class="clearfix">
+            </div>
+            <aside>
+                <dl class="dl-horizontal">
+                    <dt><span>asked</span></dt>
+                    <dd>
+                        @Model.DateAsked
+                    </dd>
+                    <dt><span>active</span></dt>
+                    <dd>
+                        @Model.LastActiveDate - @Model.LastActiveTime
+                    </dd>
+                </dl>
+                <div class="sidebar">
+
+                    <h2 class="text-center">Related</h2>
+
+                    <div class="box">
+                        <div class="btn-bg-color-3">
+
+                            <div class="clearfix">
+                            </div>
+
+
+                        </div>
+
+                        <div class="text-box">
+                            @{
+                                string idQ = Guid.NewGuid().ToString();
+                                int Count = Model.RelatedQuestionViewModels.Count;
+                                //int Count = Model.RelatedQuestionViewModels.Count;
+                            }
+                            @if (Model.Count == 1)
+                            {
+                                <small style="font-size:small">
+                                    <b>Have a question?</b>
+                                    <small>People are waiting to help</small>
+                                    <a href="@Url.Action("Create", "Question", null,null)" class="btn-login">
+                                        click here to ask »
+                                    </a>
+                                </small>
+                            }
+
+                            else
+                            {
+                                <div>
+                                    @foreach (var item in Model.RelatedQuestionViewModels)
+                                    {
+                                        if (Model.QuestionId == item.QuestionId)
+                                        {
+                                            item.QuestionText = null;
+                                        }
+                                        string relQuestion = @TruncateAtWord(item.QuestionText, 50);
+                                        <div>
+                                            <small style="font-size:small">
+                                                <a href="@Url.Action("Thread","Question", new {title=item.QuestionTitle,page = item.QuestionId,iD = idQ},null)" class="btn-login">
+                                                    @relQuestion
+                                                </a>
+                                            </small>
+                                            <p>
+                                        </div>
+
+                                    }
+                                </div>
+                            }
+
+                        </div>
+
+                        @*<input type="text" name="dynamicUrl" id="dynamicUrl" value="">*@
+
+                    </div>
+
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    function CountCharacters() {
+        var body = (this).tinymce.get("Answer").getBody();
+        var content = tinymce.trim(body.innerText || body.textContent);
+        return content.length;
+    };
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+    });
+
+
+    $('#close').click(function (event) {
+
+        var $panel = $(this).closest('.panel-google-plus');
+        $panel.toggleClass('panel-google-plus-show-comment');
+
+    });
+    $("#process").click(function (event) {
+        event.preventDefault();
+        tinyMCE.triggerSave();
+        $("#divProcessing").show();
+        $('#process').hide();
+        //$('#processC').hide();
+        $('#close').hide();
+        var min = 2;
+
+        var count = CountCharacters();
+        if (count < min) {
+            $("#divProcessing").hide();
+            $('#process').show();
+            //$('#processC').show();
+            $('#close').show();
+            return false;
+        }
+
+        var formData = {
+            Answer: $("#Answer").val(),
+            QuestionId: $("#QuestionId").val(),
+        }
+
+        var data = JSON.stringify(formData);
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['__RequestVerificationToken'] = token;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateAnswerToQuestion", "Question")',
+            contentType: 'application/json; charset=utf-8',
+            headers: headers,
+            data: data,
+            dataType: "json",
+            success: function (result) {
+                if (result.success) {
+                    location.reload();
+                } else {
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+       $(function () {
+           $('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function (event) {
+
+               var $panel = $(this).closest('.panel-google-plus');
+               $comment = $panel.find('.panel-google-plus-comment');
+               $comment.find('.btn:first-child').addClass('disabled');
+               $comment.find('textarea').val('');
+
+               $panel.toggleClass('panel-google-plus-show-comment');
+
+               if ($panel.hasClass('panel-google-plus-show-comment')) {
+                   $comment.find('textarea').focus();
+                   tinyMCE.get('Answer').focus();
+               }
+           });
+
+           $('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function (event) {
+               var $comment = $(this).closest('.panel-google-plus-comment');
+
+               $comment.find('button[type="submit"]').addClass('disabled');
+               if ($('Answer').val().length >= 1) {
+                   $comment.find('button[type="submit"]').removeClass('disabled');
+               }
+           });
+       });
+</script>
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

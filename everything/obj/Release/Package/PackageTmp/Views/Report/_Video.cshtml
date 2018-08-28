@@ -1,0 +1,171 @@
+﻿@model everything.Models.ReportVideo
+
+
+<SCRIPT type="text/javascript">
+    function ValidateFileUpload() {
+        document.getElementById("process").disabled = false;
+        var fuData = document.getElementById('fileChooser');
+        var FileUploadPath = fuData.value;
+
+
+        if (FileUploadPath == '') {
+            alert("Please upload an mp4 video file");
+
+        } else {
+            var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+
+
+            if (Extension == "mp4" || Extension == "MP4") {
+
+
+                if (fuData.files && fuData.files[0]) {
+
+                    var size = fuData.files[0].size;
+
+                    if (size > 10021440) {
+                        alert("Image file must not exceed 10MB");
+                        document.getElementById("process").disabled = true;
+                        return;
+                    } else {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(fuData.files[0]);
+                    }
+                }
+
+            }
+
+
+            else {
+                alert("Video only allows file types of MP4. ");
+               document.getElementById("process").disabled = true;
+            }
+        }
+    }
+</SCRIPT>
+
+<strong>How to upload video(s):</strong>
+<div class="col-md-12 col-sm-12">
+    <small>
+        Attachments are optional. If you have video(s) that you would like to add to your complaint you can upload them now. Click Choose Files to find video(s) on your computer and then click upload to add the video(s) to your complaint.
+    </small>
+    <br>
+    <br>
+    <strong>
+        NOTICE: Do not post an image or video that was created by someone other than you unless you have permission from the
+        photographer or creator to post it. Please refer to our Terms of Use regarding violation of the intellectual property
+        rights of others. If you have any trouble at all uploading your videos, please email us for support and include your
+        videos with a caption for each video you include. Send your email to support@ripoff.com.ng
+
+    </strong>
+</div>
+
+<div class="col-md-4 col-sm-4">
+    @using (Html.BeginForm("UploadVideo", "Report", null, FormMethod.Post, new { enctype = "multipart/form-data" , id = "vForm", name = "vForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="">
+
+            <div class="">
+
+                <div class="">
+                    <br>
+                    <br>
+                    <ul>
+
+                        <li>
+                            <em><strong>Video file(s)</strong></em>
+                            <div class="checkbox form-group col-md-12 col-sm-12">
+                                <input type="file" class="multiple" multiple name="files" id="fileChooser" accept="video/*" onchange="return ValidateFileUpload()"/>
+                                <small><i class="text-danger">Video file must be .MP4 AND must not exceed 10MB<br>
+                                You can upload multiple video files</i></small><br>
+                            </div>
+
+                            <div class="checkbox form-group col-md-12 col-sm-12">
+                                <em><strong>Add Caption </strong></em>
+                                <textarea type="text" id="vidCaption" name="vidCaption" placeholder="Add video caption" />
+
+                            </div>
+                            <div class="checkbox form-group col-md-12 col-sm-12">
+                                <em><i><b>Supported files include: 3gp, asf, avi, dv, flv, mov, mp4, mpg, mpeg, mpeg2, ogg, pcm, rm, vob, wav, webm </b></i></em><br>
+                                <small>If you don't see your file format please email <strong><i>support@ripoff.com.ng</i></strong></small><br>
+
+                            </div>
+                            <input type="hidden" name="ReportId" value="@ViewBag.page" />
+
+
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+            <div class="col-md-8 col-sm-8">
+
+                <input type="submit" value="Upload video" name="operation" id="process">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+            </div>
+            <div id="divProcessing">
+                <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+            </div>
+    }
+
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+    });
+
+    $("#vForm").submit(function (event) {
+
+        var isValid = $('#vForm').valid();
+        if (isValid) {
+            $("#divProcessing").show();
+            $('#process').hide();
+        }
+    });
+    @*$(function () {
+        $("#divProcessing").hide();
+        $('#vForm').submit(function () {
+            $("#divProcessing").show();
+            $('#process').hide();
+            if ($(this).valid()) {
+                $("#vForm").block({
+                    message: '<img src="@Url.Content("~/images/ajax-loader.gif")" alt="Please wait...">',
+                    css: { width: '4%', border: '0px solid #FFFFFF', cursor: 'wait', backgroundColor: '#F2F2F4' },
+                    overlayCSS: { backgroundColor: '#FFFFFF', opacity: 0.5, cursor: 'wait' }
+                });
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        $("#divProcessing").hide();
+                        $('#process').show();
+                    }
+                });
+            }
+            return false;
+        });
+    });*@
+</script>

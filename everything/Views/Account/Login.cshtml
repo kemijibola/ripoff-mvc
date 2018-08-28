@@ -1,0 +1,102 @@
+﻿@using everything.Models
+
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+@*<link href="@Url.Content("~/Content/login.css")" rel="stylesheet" type="text/css" />*@
+
+
+
+
+        <section id="loginForm" class="signup-section">
+            <div class="container">
+                <div class="holder">
+                    <div class="thumb"><img src="~/images/person.gif" alt="img"></div>
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "logForm", name = "logForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="input-box ">
+                            <i class="fa fa-envelope-o"></i>
+                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "you@example.com", @autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="input-box">
+                            <i class="fa fa-unlock"></i>
+                            @Html.PasswordFor(m => m.Password, new { @placeholder = "********", @class = "form-control input-lg" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row">
+                            <div class="check-box col-md-6">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                            <div class="check-box col-md-6">
+                                <input type="submit" value="Log in" id="loginButton" name="operation">
+
+                            </div>
+                            <div id="divProcessing">
+                                <p>Logging in, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                            </div>
+                        </div>
+
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", routeValues: null, htmlAttributes: new { @class = "login" })
+
+                        <em>You Don’t have an Account? @Html.ActionLink("SIGN UP NOW", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn-login" })</em>
+
+
+                    }
+                    </div>
+               </div>
+            <div class="clearfix">
+                </div>
+            <div class="">
+                <h2 class="text-center"><b>OR</b></h2>
+                <b>Log in using</b>
+                <br>
+                <br>
+                <div class="login-social text-center">
+
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+
+                </div>
+            </div>
+            
+        </section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#logForm").submit(function (event) {
+
+        var isValid = $('#logForm').valid();
+            if (isValid) {
+                $("#divProcessing").show();
+                $('#loginButton').hide();
+             }
+    });
+
+</script>
+}

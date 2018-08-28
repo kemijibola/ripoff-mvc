@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+@using everything.Models
+@model LoginViewModel
+
+
+<link rel="stylesheet" type="text/css" href="~/csss/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="~/csss/libs/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="~/csss/libs/nanoscroller.css" />
+<!-- global styles -->
+<link rel="stylesheet" type="text/css" href="~/csss/compiled/theme_styles.css" />
+
+@using (Html.BeginForm("Login", "Access", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "sky-form boxed", role="form" , id="adLogin", name="adLogin"}))
+{
+ @Html.AntiForgeryToken()
+<div id="login-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="login-box">
+                    <div id="login-box-holder">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div id="login-box-inner">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input class="form-control" type="text" placeholder="Username" name="Email" id="Email">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                            <input type="password" class="form-control" placeholder="Password" name="Password" password="Password">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button type="submit" class="btn btn-success col-xs-12" id="adButton">Login</button>
+                                            </div>
+                                        </div>
+                                    <div id="divProcessing">
+                                        <p>Logging in, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/jss/jquery.js"></script>
+    <script src="~/jss/bootstrap.js"></script>
+    <script src="~/jss/jquery.nanoscroller.min.js"></script>
+
+    <script src="~/jss/demo.js"></script> <!-- only for demo -->
+    <!-- this page specific scripts -->
+    <!-- theme scripts -->
+    <script src="~/jss/scripts.js"></script>
+
+    <!-- this page specific inline scripts -->
+
+    </div>
+}
+
+
+<script src="~/jss/demo-skin-changer.js"></script> <!-- only for demo -->
+
+<script src="~/jss/jquery.js"></script>
+<script src="~/jss/bootstrap.js"></script>
+<script src="~/jss/jquery.nanoscroller.min.js"></script>
+
+<!-- theme scripts -->
+<script src="~/jss/scripts.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#adLogin").submit(function (event) {
+                $("#divProcessing").show();
+                $('#adButton').hide();
+    });
+
+</script>

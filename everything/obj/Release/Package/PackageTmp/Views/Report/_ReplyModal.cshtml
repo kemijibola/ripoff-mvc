@@ -1,0 +1,61 @@
+﻿@model everything.ViewModels.CommentReplyViewModel
+
+<style>
+    .confinedSpace {
+        resize: vertical;
+        max-height: 300px;
+        min-height: 200px;
+        max-width: 300px;
+        min-width: 280px;
+    }
+</style>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h5 class="modal-title" id="myModalLabel">Reply to comment</h5>
+</div>
+
+@using (Html.BeginForm("CreateComment", "Report", FormMethod.Post, new { encType = "multipart/form-data", id = "tForm", name = "tForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-body">
+        
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-12">
+                    <small>
+                        <strong>Comment:</strong> <i>@Html.Raw(HttpUtility.HtmlDecode(Model.ThreadText))</i>
+                    </small>
+                </div>
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.CommentText,new {@class = "confinedSpace",placeholder= "Enter your reply",@autofocus = "autofocus" ,@required="required"})
+                    @Html.ValidationMessageFor(model => model.CommentText, "", new { @class = "text-danger" })
+                </div>
+                <input type="hidden" name="ThreadId" value="@Model.ThreadId" />
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" name="op" id="cancelProcess">Cancel</button>
+        <input class="btn btn-primary" type="submit" value="Post" name="operation" id="process" />
+
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#process').on('click', function () {
+            $('#cancelProcess').attr('disabled', 'disabled');
+            $('#process').val('Please wait ...')
+              .attr('disabled', 'disabled');
+            $('#tForm').submit();
+        });
+
+    });
+</script>

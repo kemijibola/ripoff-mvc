@@ -1,0 +1,75 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<everything.Models.Feedback>
+
+@{
+    ViewBag.Title = "Feedbacks";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><span>Feedback</span></li>
+                </ol>
+
+                <h1>Feedback <small>Website Feedback</small></h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box clearfix">
+                    <header class="main-box-header clearfix">
+                        <h2 class="pull-left">Feedback</h2>
+
+                    </header>
+
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-xs">ID</th>
+                                        <th><span>Feedback</span></th>
+                                        <th><span>Date Posted</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Select((x, b) => new { Data = x, Index = b }))
+                                    {
+                                        var id = Guid.NewGuid().ToString();
+                                        <tr>
+                                            <td>
+                                                <small>@(item.Index + ((Model.PageNumber - 1) * Model.PageSize) + 1)</small>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.Message)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.DateCreated)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="pagination pull-right">
+                            <b>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</b>
+                            <span>
+
+                                @Html.PagedListPager(Model, page => Url.Action("Feedback", new { page, sort = ViewBag.CurrentSort, search = ViewBag.CurrentSearch }))
+                            </span>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

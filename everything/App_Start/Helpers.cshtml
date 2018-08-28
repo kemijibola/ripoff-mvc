@@ -1,0 +1,6 @@
+﻿@helper TimeAgoInWords(DateTime dateTime)
+{
+    <time class="timeago" datetime="@dateTime.ToString("yyyy-MM-ddTHH:mm:ssK")" title="@dateTime.ToString("f")">
+        @dateTime.ToString("f")
+    </time>
+}

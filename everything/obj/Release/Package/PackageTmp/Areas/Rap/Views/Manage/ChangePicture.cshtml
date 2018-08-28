@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Change Picture";
+}
+
+<script src="~/jss/jquery.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<SCRIPT type="text/javascript">
+    function ValidateFileUpload() {
+        document.getElementById("btnPostUploadPicture").disabled = false;
+        var fuData = document.getElementById('fileChooser');
+        var FileUploadPath = fuData.value;
+
+
+        if (FileUploadPath == '') {
+            alert("Please upload an image");
+
+        } else {
+            console.log(FileUploadPath);
+            var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+
+
+            if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+                        || Extension == "jpeg" || Extension == "jpg") {
+
+
+                if (fuData.files && fuData.files[0]) {
+
+                    var size = fuData.files[0].size;
+
+                    if (size > 1000240) {
+                        alert("Image file must not exceed 1MB");
+                        document.getElementById("btnPostUploadPicture").disabled = true;
+                        return;
+                    } else {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(fuData.files[0]);
+                    }
+                }
+
+            }
+
+
+            else {
+                alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+                document.getElementById("btnPostUploadPicture").disabled = true;
+            }
+        }
+    }
+</SCRIPT>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><span>Change Picture</span></li>
+                </ol>
+
+                <h1>Change Picture </h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box clearfix">
+                    <header class="main-box-header clearfix">
+                        <h2 class="pull-left">Change Picture</h2>
+                    </header>
+
+                    @using (Html.BeginForm("ChangePicture", "Manage", FormMethod.Post, new { enctype = "multipart/form-data",@class = "form-horizontal", role = "form", id = "reqForm", name = "reqForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <span class="text-danger">
+                            @ViewBag.Error
+                        </span>
+                        <div class="main-box-body clearfix">
+
+                            <div class="form-group">
+                                
+                                <input class="custom-file-upload" type="file" id="fileChooser" name="file" data-btn-text="Select a Picture" accept="image/*" onchange="return ValidateFileUpload()" />
+                                <small class="text-muted block">Max file size: 1Mb (gif/jpg/png)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <input type="submit" value="Change Picture" name="btnPostUploadPicture" id="btnPostUploadPicture" class="btn btn-success">
+                                </div>
+                            </div>
+                            <div id="divProcessing">
+                                <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#reqForm").submit(function (event) {
+
+                $("#divProcessing").show();
+                $('#btnPostUploadPicture').hide();
+    });
+
+</script>

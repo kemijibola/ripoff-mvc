@@ -1,0 +1,154 @@
+﻿@model IEnumerable<everything.Models.DiscussionCategory>
+
+@{
+    ViewBag.Title = "Discussion Category";
+}
+<script src="~/jss/jquery.js"></script>
+<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active"><span>Discussion Category</span></li>
+                </ol>
+
+                <h1>Discussion Category <small>Ask2Buy</small></h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-box clearfix">
+                    <header class="main-box-header clearfix">
+                        <h2 class="pull-left">New Discussion Category</h2>
+                    </header>
+
+                    @using (Html.BeginForm("Create", "DiscussionCategory", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "reqForm", name = "reqForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="main-box-body clearfix">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Report Rejection Reason</label>
+                                <input type="text" name="Name" id="Name" placeholder="Category Name" class="form-control" required autofocus="autofocus">
+                                @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Description</label>
+                                @Html.TextArea("Description", new { @class = "form-control", @rows = "10", @Required="Required" })
+                                @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <input type="submit" value="Create" name="operation" id="process" class="btn btn-success">
+                                </div>
+                            </div>
+                            <div id="divProcessing">
+                                <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></p>
+                            </div>
+
+                        </div>
+                    }
+                    <h2 class="pull-left">Rejection List</h2>
+                    <hr>
+
+                    <div class="main-box-body clearfix">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-xs">ID</th>
+                                        <th>Category Name</th>
+                                        <th>Description</th>
+                                        <th class="text-center"><em class="fa fa-cog">&nbsp;Action</em></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Select((x, b) => new { Data = x, Index = b }))
+                                    {
+                                        var id = Guid.NewGuid().ToString();
+                                        <tr>
+                                            <td>
+                                                <small>@(item.Index + 1)</small>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Data.Description)
+                                            </td>
+                                            <td style="width: 35%;" class="text-right">
+
+                                                <a href="@Url.Action("Edit","DiscussionCategory", new {id = item.Data.DiscussionCategoryId},null)" class="table-link success">
+
+                                                    Edit
+                                                </a>
+                                                <a href="#" class="table-link danger" onclick="DeleteDiscussionCategory(@item.Data.DiscussionCategoryId)">
+                                                    Delete
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+
+    function DeleteDiscussionCategory(object) {
+
+        var category = {
+            DiscussionCategoryId: object
+
+        };
+
+        $.ajax({
+            url: ("@Url.Action("DeleteConfirmed", "DiscussionCategory")"),
+        type: 'POST',
+        data: JSON.stringify(category),
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            alert('Discussion category deleted Successfully');
+            location.reload();
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+        }
+    });
+    }
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#reqForm").submit(function (event) {
+
+                $("#divProcessing").show();
+                $('#process').hide();
+    });
+
+</script>

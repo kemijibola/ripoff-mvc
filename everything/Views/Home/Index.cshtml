@@ -1,0 +1,280 @@
+﻿@model everything.ViewModels.FeedbackWithBlog
+@using everything.Helpers
+@using System.Text.RegularExpressions;
+
+<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.timeago.js")"></script>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    img {
+        max-width: 100%;
+        height: auto;
+        width: auto\9; /* ie8 */
+    }
+
+    #quote-carousel {
+    padding: 0 10px 30px 10px;
+    margin-top: 60px;
+}
+#quote-carousel .carousel-control {
+    background: none;
+    color: #CACACA;
+    font-size: 2.3em;
+    text-shadow: none;
+    margin-top: 30px;
+}
+#quote-carousel .carousel-indicators {
+    position: relative;
+    right: 50%;
+    top: auto;
+    bottom: 0px;
+    margin-top: 20px;
+    margin-right: -19px;
+}
+#quote-carousel .carousel-indicators li {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    opacity: 0.4;
+    overflow: hidden;
+    transition: all 4s ease-in;
+    vertical-align: middle;
+}
+#quote-carousel .carousel-indicators .active {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+    transition: all 4s;
+}
+.item blockquote {
+    border-left: none;
+    margin: 0;
+}
+.item blockquote p:before {
+    content: "\f10d";
+    font-family: 'Fontawesome';
+    float: left;
+    margin-right: 10px;
+}
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="carousel slide" data-ride="carousel" id="quote-carousel" data-interval="10000">
+                <!-- Carousel Slides / Quotes -->
+                <div class="carousel-inner text-center">
+                @if (Model.Testimonials != null)
+                {
+                    var i = 0;
+                    foreach (var item in Model.Testimonials)
+                    {
+                        var itemClass = i++ == 0 ? "item active" : "item";
+                    <!-- Quote 1 -->
+                    <div class="item @itemClass">
+                        <blockquote>
+                            <div class="row">
+                                <div class="col-sm-8 col-sm-offset-2">
+                                    <p>@item.Message</p>
+                                    <small>@item.UserName</small>
+                                </div>
+                            </div>
+                        </blockquote>
+                    </div>
+
+                    }
+                  }
+                </div>
+
+                <!-- Carousel Buttons Next/Prev -->
+                <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+                <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--TESTIOMONIALS SECTION END-->
+<div class="resumes-section padd-tb">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+
+                <aside>
+                    @Html.Partial("_RecentComplaints")
+                    @*<div id="loading"><span style="font-size:small"> <i>loading</i></span> <img src="~/images/ajax-loader.gif"></div>
+                    <div id="recentComplaints"></div>*@
+                    <a class="btn btn-danger" style="background-color:#f44336;border-color:#f44336" href="@Url.Action("Create", "Report", new {},null)"><span style="font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';font-size:13px">CLICK TO FILE A COMPLAINT NOW!!!</span></a>
+                    <div class="clearfix">
+                    </div>
+                    <div class="hidden-xs"><a href="@Url.Action("Create", "Question", new {},null)"><img src="~/images/ask2buynew336x280.jpg" alt="Ask2Buy" style="display: block;margin-left: auto;margin-right: auto"></a></div>
+                </aside>
+
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+
+                <div class="resumes-content hidden-xs">
+                    <div class="img"><a href="#"><img src="~/images/bannerslide.gif" alt="Guide to safe service"></a></div>
+
+                    @Html.Partial("_VideoPartial")
+                </div>
+
+                <hr>
+
+                <h2>Consumer Protection In Nigeria</h2>
+                <div>
+                    <p>Rip-Off NG&trade; is committed to bringing awareness to Nigerians at all levels as every consumer reserves the right to the consumption of quality products, hence ought not be subjected to the self-serving whims and caprices of dubious production companies, manufacturers and their agents. We have chosen not to rest on our oars until consumer exploitation is brought to its knees in Nigeria.</p>
+                    <div id="loadMore"> <a href="@Url.Action("Consumer", "Home", null,null)" class="load-more"><i class="fa fa-eye"></i>Read more</a></div>
+                    <img src="~/images/ripoff-stamp.png" alt="Stop Rip-Off in 9ja" style="display: block;margin-left: auto;margin-right: auto" class="hidden-xs">
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="clearfix">
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3 col-sm-3">
+
+                <aside>
+                    @Html.Partial("_RecentQuestions")
+                    @*<div id="loadingQ"><span style="font-size:small"><i>loading</i></span> <img src="~/images/ajax-loader.gif"></div>
+                    <div id="recentQuestions"></div>*@
+                    <a class="btn btn-danger" style="background-color:#f44336;" href="@Url.Action("Create", "Question", new {},null)"><span style="font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';font-size:13px">POST A QUESTION NOW!!!</span></a>
+                    <div class="clearfix">
+                    </div>
+                </aside>
+                <div class="clearfix">
+                </div>
+                <aside>
+                    <div class="sidebar">
+                        <div class="box">
+
+                            <div class="text-box">
+                                <a class="btn-time" style="background:#3694f4">Recent Updates</a>
+
+                                <div class="recent-post">
+
+                                    <ul>
+                                     @if (Model.Posts != null)
+                                     {
+                                        foreach (var item in Model.Posts)
+                                         {
+
+                                            <li>
+                                                <small>
+                                                    <a href="@Url.Action("NewsUpdate", "Home",new { post = @item.BlogId},null)" class="btn-login" style="font-size:small">
+                                                        @item.Title
+                                                    </a>
+                                                </small>
+                                                <div class="text-area"><a><i class="fa fa-calendar"></i>@Html.Timeago(item.DateCreated) </a> </div>
+
+                                            </li>
+                                        }
+                                      }
+
+                                    </ul>
+
+                                </div>
+
+                                @*<a class="btn-apply" href="@Url.Action("Create", "Report", new {},null)">File complaint</a>*@
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </aside>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+
+@*<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+<script src="~/SignalR/hubs"></script>*@
+
+
+@*<script type="text/javascript">
+        $(function () {
+
+            $("#loading").show();
+            $("#loadingQ").show();
+
+            var notificationFromHub = $.connection.recentComplaints;
+            var notificationFromHubQ = $.connection.recentQuestions;
+
+            $.connection.hub.start().done(function () {
+                FetchAllRecentComplaints();
+                FetchAllRecentQuestions();
+            });
+
+            notificationFromHub.client.updatedClients = function () {
+                FetchAllRecentComplaints();
+            };
+
+            notificationFromHubQ.client.updatedClients = function () {
+                FetchAllRecentQuestions();
+            };
+        });
+
+        function FetchAllRecentComplaints() {
+            var model = $('#recentComplaints');
+            $.ajax({
+                    url: '@Url.Action("GetAllRecentComplaints", "Home")',
+                    contentType: 'application/html ; charset:utf-8',
+                    type: 'GET',
+                    dataType: 'html'
+                })
+                .success(function (result)
+                {
+                    model.empty().append(result);
+                    $("#loading").hide();
+                })
+        }
+
+        function FetchAllRecentQuestions() {
+            var model = $('#recentQuestions');
+            $.ajax({
+                url: '@Url.Action("GetAllRecentQuestions", "Home")',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html'
+            })
+                .success(function (result) {
+                    model.empty().append(result);
+                    $("#loadingQ").hide();
+                })
+        }
+
+</script>*@
+
+@functions
+             {
+    public static string TruncateAtWord(string textToTruncate, int length)
+    {
+        if (textToTruncate == null || textToTruncate.Length < length)
+            return textToTruncate;
+        int iNextSpace = textToTruncate.LastIndexOf(" ", length);
+        return string.Format("{0}", textToTruncate.Substring(0, (iNextSpace > 0) ? iNextSpace : length).Trim());
+    }
+}

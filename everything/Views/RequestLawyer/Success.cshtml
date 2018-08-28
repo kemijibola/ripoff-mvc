@@ -1,0 +1,65 @@
+﻿@using everything.Helpers
+@using System.Text.RegularExpressions;
+
+
+@{
+    ViewBag.Title = "Success";
+}
+
+<style>
+    .example1 {
+        vertical-align: super
+            
+    }
+</style>
+
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+<div class="clearfix">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <section class="account-option">
+
+                <div class="container">
+
+                    <div class="inner-box">
+
+                        <div class="text-box">
+
+                            <h4>Request Successful!</h4>
+
+                            <p>
+                                You have successfully submitted a Rip-Off NG<span class="example1"><i class="fa fa-trademark" aria-hidden="true" style="font-size:7px"></i></span> legal service request for your report <br> - <i>@ViewBag.suc - </i><br>
+
+                                We will call you shortly to validate request.
+                            </p>
+
+                        </div>
+                        <a href="@Url.Action("MyPage","Report", null,null)" class="btn-style-1">
+                            <i class="fa fa-arrow-right"></i>
+                            My Page
+                        </a>
+                        
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+</div>

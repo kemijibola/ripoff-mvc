@@ -1,0 +1,150 @@
+﻿@model everything.ViewModels.CommentForReportViewModel
+
+@{
+    ViewBag.Title = "Post comment";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/tinymce/tinymce.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+        // Initialize your tinyMCE Editor with your preferred options
+        tinyMCE.init({
+            // General options
+
+            mode: "textareas",
+            theme: "modern",
+
+            height: "300",
+            width: "790",
+            verify_html: false,
+            //plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+
+            plugins: "smileys,emoticons,image",
+            toolbar: 'smileys,emoticons,insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons',
+
+            //mode: "textareas",
+            //theme: "modern",
+            // Theme options
+            theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+            theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+            theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+            theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+            theme_advanced_toolbar_location: "top",
+            theme_advanced_toolbar_align: "left",
+            theme_advanced_statusbar_location: "bottom",
+            theme_advanced_resizing: false,
+            auto_convert_smileys: true,
+            relative_urls: false,
+
+            setup: function (ed) {
+                ed.on('keyup', function (e) {
+                    var count = CountCharacters();
+                    document.getElementById("character_count").innerHTML = "Character count: " + count;
+                    if (count < 2) {
+                        $("#error").text("Your comment must be minimum 2 characters");
+                    }
+                    else {
+                        $("#error").text("");
+                    }
+
+                })
+            },
+
+            // Example content CSS (should be your site CSS)
+            content_css: "../Content/custom.css",
+        });
+</script>
+<section id="inner-banner">
+
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+
+    </div>
+
+</section>
+
+<section class="resum-form padd-tb">
+
+    <div class="container">
+
+        @using (Html.BeginForm("CreateThread", "Report", null, FormMethod.Post, new { encType = "multipart/form-data",  id = "tForm", name = "tForm" }))
+        {
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <input type="hidden" name="ReportId" value="@Model.ReportId" />
+                
+                <div class="form-group col-md-12 col-sm-12">
+                    <strong>Complaint:</strong> <em>@Html.Raw(HttpUtility.HtmlDecode(Model.ReportText))</em>
+
+                </div>
+                <div class="form-group col-md-12 col-sm-12">
+                    <em><strong>Add comment to this Report <b class="text-danger">*</b></strong><strong class="text-danger">&nbsp; @ViewBag.StatusMessage</strong></em>
+                    <span id="character_count"></span>
+                    <span id="error" class="text-danger"></span>
+                    @Html.TextAreaFor(model => model.ThreadText)
+                    <small>@Html.ValidationMessageFor(model => model.ThreadText, "", new { @class = "text-danger" })</small>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="btn-col">
+                        <input type="submit" value="Add Comment" name="operation" id="process">
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+        <div id="divProcessing">
+           <p>Processing, please wait . . . <img src="~/images/ajax-loader.gif"></P>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+
+        function CountCharacters() {
+            var body = tinymce.get("ThreadText").getBody();
+            var content = tinymce.trim(body.innerText || body.textContent);
+            return content.length;
+        };
+
+
+
+    $(document).ready(function () {
+        $("#divProcessing").hide();
+
+        });
+
+    $("#tForm").submit(function (event) {
+
+            var min = 2;
+
+            var count = CountCharacters();
+            if (count < min) {
+                return false;
+            }
+
+            var isValid = $('#tForm').valid();
+            if (isValid) {
+                tinyMCE.triggerSave();
+                $("#divProcessing").show();
+                $('#process').hide();
+             }
+    });
+
+</script>
+
+}

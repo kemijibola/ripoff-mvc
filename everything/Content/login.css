@@ -1,0 +1,45 @@
+﻿@import "compass/css3";
+@import url(http://fonts.googleapis.com/css?family=Vibur);
+
+.log-status.wrong-entry {
+ @include animation( wrong-log 0.3s);
+}
+.log-status.wrong-entry .form-control, .wrong-entry .form-control + .fa {
+  border-color: #ed1c24;
+  color: #ed1c24;
+}
+.log-btn{
+  background:#0AC986;
+  dispaly:inline-block;
+  width:100%;
+  font-size:16px;
+  height:50px;
+  color:#fff;
+  text-decoration:none;
+  border:none;
+  @include border-radius(4px);
+}
+
+.link{
+  text-decoration:none;
+  color:#C6C6C6;
+  float:right;
+  font-size:12px;
+  margin-bottom:15px;
+  &:hover{
+    text-decoration: underline;
+    color:#8C918F;
+  }
+}
+.alert{
+  display:none;
+  font-size:12px;
+  color:#f00;
+  float:left;
+}
+@include keyframes (wrong-log) {
+  0%, 100% { left: 0px;}
+  20% , 60%{left: 15px;}
+  40% , 80%{left: -15px;}
+}
+

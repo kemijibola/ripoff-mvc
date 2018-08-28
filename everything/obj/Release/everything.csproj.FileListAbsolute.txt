@@ -1,0 +1,289 @@
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\csc.exe
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\csc.exe.config
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\csc.rsp
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\csi.exe
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\csi.rsp
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\System.AppContext.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\vbc.exe
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\vbc.exe.config
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\vbc.rsp
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\VBCSCompiler.exe
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\everything.dll.config
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\everything.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\everything.pdb
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Antlr3.Runtime.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\EntityFramework.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\EntityFramework.SqlServer.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Facebook.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\FluentValidation.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\FluentValidation.Mvc.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.Owin.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.CSharp.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Newtonsoft.Json.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Ninject.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Ninject.Extensions.Conventions.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\NReco.VideoConverter.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Owin.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.ComponentModel.DataAnnotations.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Configuration.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Data.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Drawing.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.EnterpriseServices.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Net.Http.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Net.Http.WebRequest.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Abstractions.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.ApplicationServices.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.DynamicData.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Entity.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Helpers.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Http.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Http.WebHost.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Mvc.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Optimization.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Razor.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Routing.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Services.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.WebPages.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.WebPages.Razor.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Xml.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\WebGrease.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Net.Http.Formatting.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Antlr3.Runtime.pdb
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\EntityFramework.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\EntityFramework.SqlServer.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Facebook.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\FluentValidation.pdb
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\FluentValidation.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\FluentValidation.Mvc.pdb
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.Client.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.Owin.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Newtonsoft.Json.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Ninject.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Ninject.Extensions.Conventions.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\NReco.VideoConverter.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Http.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Http.WebHost.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Helpers.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Mvc.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Optimization.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.Razor.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.WebPages.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Web.WebPages.Razor.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\System.Net.Http.Formatting.xml
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\cs\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\da\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\de\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\es\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\fa\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\fi\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\fr\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\it\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\ko\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\mk\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\nl\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\pl\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\pt\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\ru\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\sv\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\tr\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\bin\zh-CN\FluentValidation.resources.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\obj\Release\everything.csprojResolveAssemblyReference.cache
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\obj\Release\everything.csproj.GenerateResource.Cache
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\obj\Release\everything.dll
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\obj\Release\everything.pdb
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\obj\Release\everything.Migrations.rptUp.resources
+C:\Users\Workload\Documents\Visual Studio 2015\Projects\everything\everything\obj\Release\everything.Migrations._new.resources
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\csc.exe
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\csc.exe.config
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\csc.rsp
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\csi.exe
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\csi.rsp
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\System.AppContext.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\vbc.exe
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\vbc.exe.config
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\vbc.rsp
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\VBCSCompiler.exe
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\everything.dll.config
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\everything.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\everything.pdb
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Antlr3.Runtime.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\EntityFramework.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\EntityFramework.SqlServer.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Facebook.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\FluentValidation.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\FluentValidation.Mvc.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.Owin.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.CSharp.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Newtonsoft.Json.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Ninject.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Ninject.Extensions.Conventions.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\NReco.VideoConverter.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Owin.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.ComponentModel.DataAnnotations.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Configuration.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Data.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Drawing.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.EnterpriseServices.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Net.Http.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Net.Http.Formatting.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Net.Http.WebRequest.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Abstractions.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.ApplicationServices.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.DynamicData.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Entity.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Helpers.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Mvc.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Optimization.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Razor.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Routing.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Services.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.WebPages.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.WebPages.Razor.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Xml.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\WebGrease.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Antlr3.Runtime.pdb
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\EntityFramework.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\EntityFramework.SqlServer.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Facebook.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\FluentValidation.pdb
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\FluentValidation.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\FluentValidation.Mvc.pdb
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.Client.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.Owin.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Newtonsoft.Json.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Ninject.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Ninject.Extensions.Conventions.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\NReco.VideoConverter.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Net.Http.Formatting.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Helpers.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Mvc.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Optimization.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.Razor.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.WebPages.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\System.Web.WebPages.Razor.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\cs\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\da\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\de\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\es\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\fa\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\fi\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\fr\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\it\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\ko\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\mk\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\nl\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\pl\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\pt\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\ru\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\sv\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\tr\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\bin\zh-CN\FluentValidation.resources.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\obj\Release\everything.csproj.GenerateResource.Cache
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\obj\Release\everything.dll
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\obj\Release\everything.pdb
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\obj\Release\everything.Migrations.serverM.resources
+C:\Users\Babafemi Lawal\Desktop\NG\everything\everything\obj\Release\everything.Migrations.removeMigration.resources
